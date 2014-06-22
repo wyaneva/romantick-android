@@ -2,7 +2,7 @@ package com.examples.romantick;
 
 import java.util.List;
 
-import utils.ActionActivityState;
+import utils.EnumActionActivityState;
 import model.Action;
 
 import com.example.romantick.R;
@@ -81,7 +81,7 @@ public class MainActivity extends Activity {
             	Action selectedAction = (Action) listView_allActions.getItemAtPosition(pos);
             	
     	        Intent intent = new Intent(MainActivity.this, AddOrEditActionActivity.class);
-            	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, ActionActivityState.EDIT);
+            	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.EDIT);
             	intent.putExtra(EXTRA_ACTION_TO_EDIT, selectedAction);
             	startActivity(intent);
             }	
@@ -95,7 +95,7 @@ public class MainActivity extends Activity {
 
     	//add the data handler to the intent
     	//intent.putExtra(EXTRA_DATAHANDLER, dataHandler);
-    	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, ActionActivityState.ADD);
+    	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.ADD);
     	intent.putExtra(EXTRA_ACTION_TO_EDIT, (Action)null);
     	startActivity(intent);
     }

@@ -1,7 +1,8 @@
 package com.examples.romantick;
 
 import model.Action;
-import utils.ActionActivityState;
+import utils.EnumActionActivityState;
+import utils.UsefulFunctions;
 
 import com.example.romantick.R;
 import com.example.romantick.R.id;
@@ -14,6 +15,7 @@ import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
+import android.net.wifi.p2p.WifiP2pManager.UpnpServiceResponseListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +31,7 @@ import android.widget.TextView;
 public class AddOrEditActionActivity extends ActionBarActivity 
 {
 	IDataHandler dataHandler = null;
-	ActionActivityState state = null;
+	EnumActionActivityState state = null;
 	Action actionToEdit = null;
 	
 	//Controls
@@ -43,7 +45,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_display_add_or_edit_action);
+		setContentView(R.layout.activity_add_or_edit_action);
 
 		//Initialise controls
 		initialiseControls();
@@ -53,7 +55,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 
 		//get the info that has been passed
 		Intent intent = getIntent();
-		state = (ActionActivityState)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_ACTIVITY_STATE);
+		state = (EnumActionActivityState)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_ACTIVITY_STATE);
 		actionToEdit = (Action)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT);
 
 		//setup the screen controls
@@ -142,6 +144,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	{
 		dataHandler.deleteAction(actionToEdit);
 		
+		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_DELETE);
 		finish();
 	}
 
@@ -156,12 +159,23 @@ public class AddOrEditActionActivity extends ActionBarActivity
 		Action newAction = new Action();
 		newAction.setSummary(textView_Summary.getText().toString());
 		dataHandler.addAction(newAction);
+
+		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD);
 	}
 
 	private void updateAction()
 	{
 		actionToEdit.setSummary(textView_Summary.getText().toString());
-		dataHandler.updateAction(actionToEdit);
+		int updateResult = dataHandler.updateAction(actionToEdit);
+
+		if(updateResult > 0)
+		{
+			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_SUCCESS);
+		}
+		else
+		{
+			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_FAIL);
+		}
 	}
 
 	private void setButtonVisibility(boolean areEditDeleteVisible)
@@ -186,4 +200,10 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	       }
 	    }
 	}
+
+	//-------------------------------------------------------------------
+	private static final String TOAST_MESSAGE_UPDATE_SUCCESS = "Entry has been updated.";
+	private static final String TOAST_MESSAGE_UPDATE_FAIL = "Entry has NOT been updated.";
+	private static final String TOAST_MESSAGE_ADD = "Entry has been added.";
+	private static final String TOAST_MESSAGE_DELETE = "Entry has been deleted.";
 }
