@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,10 +28,14 @@ public class AddOrEditActionActivity extends ActionBarActivity
 {
 	IDataHandler dataHandler = null;
 	ActionActivityState state = null;
-	Integer actionToEditId = null;
+	Action actionToEdit = null;
 	
 	//Controls
 	EditText textView_Summary = null;
+	Button button_Edit = null;
+	Button button_Delete = null;
+	Button button_Save = null;
+	Button button_Cancel = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +48,24 @@ public class AddOrEditActionActivity extends ActionBarActivity
 		//set up the datahandler
 		dataHandler = ActionListSQliteOpenHelper.getInstance(this);
 
-		//Get the info that has been passed
+		//get the info that has been passed
 		Intent intent = getIntent();
-		//dataHandler = (IDataHandler)intent.getSerializableExtra(MainActivity.EXTRA_DATAHANDLER);
 		state = (ActionActivityState)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_ACTIVITY_STATE);
-		actionToEditId = (Integer)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT_ID);
+		actionToEdit = (Action)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT_ID);
+
+		//set the buttons
+		switch (state) 
+		{
+		    case ADD:
+		        setButtonVisibility(false);	
+			    break;
+		    case EDIT:
+		    	setButtonVisibility(true);
+		    	break;
+		    default:
+		    	setButtonVisibility(false);
+			    break;
+		}
 	}
 
 	@Override
@@ -74,21 +92,66 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	private void initialiseControls()
 	{
 		textView_Summary = (EditText) findViewById(R.id.editText_Summary);
+		button_Edit = (Button) findViewById(R.id.button_Edit);
+		button_Delete = (Button) findViewById(R.id.button_Delete);
+		button_Save = (Button) findViewById(R.id.button_Save);
+		button_Cancel = (Button) findViewById(R.id.button_Cancel);
 	}
 
-	//button
+	//buttons
 	public void saveAction(View view)
 	{
 		switch(state)
 		{
 		    case ADD:
-		    	Action newAction = new Action();
-		    	newAction.setSummary(textView_Summary.getText().toString());
-		    	dataHandler.addAction(newAction);
+		    	addAction();
+		    	break;
 		    case EDIT:
-		    	//TODO: Update the db
+		    	updateAction();
+		    	break;
 		    default:
 			    break;
 		}
+	}
+	
+	public void editAction(View view)
+	{
+		//TODO:
+	}
+
+	public void deleteAction(View view)
+	{
+		//TODO:
+	}
+
+	public void cancelEdit(View view)
+	{
+		//TODO:
+	}
+
+	//helper functions
+	private void addAction()
+	{
+		Action newAction = new Action();
+		newAction.setSummary(textView_Summary.getText().toString());
+		dataHandler.addAction(newAction);
+	}
+
+	private void updateAction()
+	{
+		//TODO:
+	}
+
+	private void setButtonVisibility(boolean areEditDeleteVisible)
+	{
+		button_Edit.setVisibility(boolToVisibility(areEditDeleteVisible));
+		button_Delete.setVisibility(boolToVisibility(areEditDeleteVisible));
+		button_Save.setVisibility(boolToVisibility(!areEditDeleteVisible));
+		button_Cancel.setVisibility(boolToVisibility(!areEditDeleteVisible));
+	}
+	
+	private int boolToVisibility(boolean isVisible)
+	{
+		return isVisible ? View.VISIBLE : View.INVISIBLE;
 	}
 }

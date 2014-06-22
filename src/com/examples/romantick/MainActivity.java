@@ -38,13 +38,7 @@ public class MainActivity extends Activity {
         dataHandler = ActionListSQliteOpenHelper.getInstance(this);
 
         //populate the list of actions
-        ArrayAdapter<Action> arrayAdapter = new ArrayAdapter<Action>(
-        	this,
-        	android.R.layout.simple_list_item_1,
-        	dataHandler.getAllActions()
-        		); 
-
-        listView_allActions.setAdapter(arrayAdapter);
+        populateActionList(); 
     }
 
     @Override
@@ -52,6 +46,15 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() 
+    {
+    	super.onResume();
+    	
+    	//populate the list of actions
+    	populateActionList();
     }
     
     //Initialise
@@ -70,6 +73,18 @@ public class MainActivity extends Activity {
     	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, ActionActivityState.ADD);
     	intent.putExtra(EXTRA_ACTION_TO_EDIT_ID, (Integer)null);
     	startActivity(intent);
+    }
+
+    //Helper functions
+    private void populateActionList()
+    {
+          ArrayAdapter<Action> arrayAdapter = new ArrayAdapter<Action>(
+        	this,
+        	android.R.layout.simple_list_item_1,
+        	dataHandler.getAllActions()
+        		); 
+
+        listView_allActions.setAdapter(arrayAdapter);
     }
 
     //Intent passing constants

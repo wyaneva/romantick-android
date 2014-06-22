@@ -9,10 +9,16 @@
     <!-- Actions -->
     <string name="action_settings">Settings</string>
 
+    <!-- Text Views -->
+    <string name="text_summary">Summary:</string>
+
 	<!-- Buttons -->
     <string name="button_send">Send</string>
     <string name="button_add_new_action">Add New&#8230;</string>  <!-- &#8230; inserts '...' -->
+	<string name="button_edit">Edit&#8230;</string>
+	<string name="button_delete">Delete&#8230;</string>
     <string name="button_save">Save</string>
+	<string name="button_cancel">Cancel</string>
 
     <!-- Misc -->
     <string name="hello_world">Hello world!</string>
