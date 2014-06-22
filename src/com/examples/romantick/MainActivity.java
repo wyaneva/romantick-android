@@ -1,26 +1,50 @@
 package com.examples.romantick;
 
+import utils.ActionActivityState;
+import model.Action;
 
 import com.example.romantick.R;
 import com.example.romantick.R.id;
 import com.example.romantick.R.layout;
 import com.example.romantick.R.menu;
 
+import datastoragehandler.IDataHandler;
+import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends Activity {
 
-	public static String result = "";
+	private IDataHandler dataHandler = null;
+	
+	//controls
+	private ListView listView_allActions = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //initialise
+        initialiseControls();
+        
+        //create the data handler
+        dataHandler = ActionListSQliteOpenHelper.getInstance(this);
+
+        //populate the list of actions
+        ArrayAdapter<Action> arrayAdapter = new ArrayAdapter<Action>(
+        	this,
+        	android.R.layout.simple_list_item_1,
+        	dataHandler.getAllActions()
+        		); 
+
+        listView_allActions.setAdapter(arrayAdapter);
     }
 
     @Override
@@ -30,16 +54,26 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    public void sendMessage(View view)
+    //Initialise
+    private void initialiseControls()
     {
-    	EditText editText = (EditText) findViewById(R.id.edit_message);
+    	listView_allActions = (ListView) findViewById(R.id.listView_allActions);
+    }
+    
+    //Button Actions
+    public void addNewAction(View view)
+    {
+    	Intent intent = new Intent(this, AddOrEditActionActivity.class);
 
-    	Intent intent = new Intent(this, DisplayMessageActivity.class);
-    	String message = editText.getText().toString();
-    	intent.putExtra(EXTRA_MESSAGE, message);
+    	//add the data handler to the intent
+    	//intent.putExtra(EXTRA_DATAHANDLER, dataHandler);
+    	intent.putExtra(EXTRA_ACTION_ACTIVITY_STATE, ActionActivityState.ADD);
+    	intent.putExtra(EXTRA_ACTION_TO_EDIT_ID, (Integer)null);
     	startActivity(intent);
     }
 
-    //Constants
-    public final static String EXTRA_MESSAGE = "com.example.romantick.MESSAGE";
+    //Intent passing constants
+    public final static String EXTRA_DATAHANDLER = "com.example.romantick.DATAHANDLER";
+    public final static String EXTRA_ACTION_ACTIVITY_STATE = "com.example.romantick.EXTRA_ACTION_ACTIVITY_STATE";
+    public final static String EXTRA_ACTION_TO_EDIT_ID = "com.examples.romantick.EXTRA_ACTION_TO_EDIT";
 }

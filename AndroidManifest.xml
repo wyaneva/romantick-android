@@ -25,8 +25,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.examples.romantick.DisplayMessageActivity"
-            android:label="@string/title_activity_display_message" 
+            android:name="com.examples.romantick.AddOrEditActionActivity"
+            android:label="@string/title_activity_add_or_edit_action_activity" 
             android:parentActivityName="com.examples.romantick.MainActivity" >
             <meta-data 
                 android:name="android.support.PARENT_ACTIVIY"
