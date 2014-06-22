@@ -1,7 +1,11 @@
 package model;
 
-public class Action 
+import java.io.Serializable;
+
+public class Action implements Serializable 
 {
+	private static final long serialVersionUID = 1L;
+
 	private int id;
 	private String summary;
 

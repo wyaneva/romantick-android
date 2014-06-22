@@ -41,16 +41,17 @@ public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IDat
 		db.insert(TABLE_NAME, null, values);
 		db.close();
 	}
-	public void updateAction(Action action) 
+	public int updateAction(Action action) 
 	{
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
 		values.put(KEY_SUMMARY, action.getSummary());
 		
-		db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] {String.valueOf(action.getId())});
-
+		int i = db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] {String.valueOf(action.getId())});
 		db.close();
+
+		return i;
 	}
 	public void deleteAction(Action action)
 	{

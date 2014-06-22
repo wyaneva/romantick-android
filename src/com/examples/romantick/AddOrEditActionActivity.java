@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class AddOrEditActionActivity extends ActionBarActivity 
@@ -31,6 +33,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	Action actionToEdit = null;
 	
 	//Controls
+	LinearLayout layout_EditControls = null;
 	EditText textView_Summary = null;
 	Button button_Edit = null;
 	Button button_Delete = null;
@@ -51,16 +54,16 @@ public class AddOrEditActionActivity extends ActionBarActivity
 		//get the info that has been passed
 		Intent intent = getIntent();
 		state = (ActionActivityState)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_ACTIVITY_STATE);
-		actionToEdit = (Action)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT_ID);
+		actionToEdit = (Action)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT);
 
-		//set the buttons
+		//setup the screen controls
 		switch (state) 
 		{
 		    case ADD:
-		        setButtonVisibility(false);	
+		    	setupAddStateScreen();
 			    break;
 		    case EDIT:
-		    	setButtonVisibility(true);
+		    	setupEditStateScreen(actionToEdit);
 		    	break;
 		    default:
 		    	setButtonVisibility(false);
@@ -91,11 +94,24 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	//Initialise
 	private void initialiseControls()
 	{
+		layout_EditControls = (LinearLayout) findViewById(R.id.layout_EditControls);
 		textView_Summary = (EditText) findViewById(R.id.editText_Summary);
 		button_Edit = (Button) findViewById(R.id.button_Edit);
 		button_Delete = (Button) findViewById(R.id.button_Delete);
 		button_Save = (Button) findViewById(R.id.button_Save);
 		button_Cancel = (Button) findViewById(R.id.button_Cancel);
+	}
+
+	private void setupAddStateScreen()
+	{
+		setButtonVisibility(false);
+	}
+
+	private void setupEditStateScreen(Action action)
+	{
+		setEnableControls(false, layout_EditControls);
+		textView_Summary.setText(action.getSummary());
+		setButtonVisibility(true);
 	}
 
 	//buttons
@@ -112,21 +128,26 @@ public class AddOrEditActionActivity extends ActionBarActivity
 		    default:
 			    break;
 		}
+
+		finish();
 	}
 	
 	public void editAction(View view)
 	{
-		//TODO:
+		setEnableControls(true, layout_EditControls);
+		setButtonVisibility(false);
 	}
 
 	public void deleteAction(View view)
 	{
-		//TODO:
+		dataHandler.deleteAction(actionToEdit);
+		
+		finish();
 	}
 
 	public void cancelEdit(View view)
 	{
-		//TODO:
+		finish();
 	}
 
 	//helper functions
@@ -139,7 +160,8 @@ public class AddOrEditActionActivity extends ActionBarActivity
 
 	private void updateAction()
 	{
-		//TODO:
+		actionToEdit.setSummary(textView_Summary.getText().toString());
+		dataHandler.updateAction(actionToEdit);
 	}
 
 	private void setButtonVisibility(boolean areEditDeleteVisible)
@@ -153,5 +175,15 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	private int boolToVisibility(boolean isVisible)
 	{
 		return isVisible ? View.VISIBLE : View.INVISIBLE;
+	}
+
+	private void setEnableControls(boolean enable, ViewGroup vg){
+	    for (int i = 0; i < vg.getChildCount(); i++){
+	       View child = vg.getChildAt(i);
+	       child.setEnabled(enable);
+	       if (child instanceof ViewGroup){ 
+	          setEnableControls(enable, (ViewGroup)child);
+	       }
+	    }
 	}
 }
