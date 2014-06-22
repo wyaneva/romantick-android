@@ -1,4 +1,4 @@
 RomanTICK
 =========
 
-An Android app for personal use
+An Android TODO app with a romantick twist ;)
