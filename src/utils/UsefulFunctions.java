@@ -15,5 +15,4 @@ public class UsefulFunctions
 		toast.getView().setBackgroundColor(Color.rgb(255, 165, 0)); //set the background colour to orange
 		toast.show();
 	}
-
 }

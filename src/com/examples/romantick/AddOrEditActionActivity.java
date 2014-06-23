@@ -201,9 +201,15 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	    }
 	}
 
+	//Getters - useful for unit testing
+	public EnumActionActivityState getState() 
+	{
+		return state;
+	}
+
 	//-------------------------------------------------------------------
 	private static final String TOAST_MESSAGE_UPDATE_SUCCESS = "Entry has been updated.";
-	private static final String TOAST_MESSAGE_UPDATE_FAIL = "Entry has NOT been updated.";
+    private static final String TOAST_MESSAGE_UPDATE_FAIL = "Entry has NOT been updated.";
 	private static final String TOAST_MESSAGE_ADD = "Entry has been added.";
 	private static final String TOAST_MESSAGE_DELETE = "Entry has been deleted.";
 }

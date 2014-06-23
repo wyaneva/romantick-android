@@ -43,9 +43,7 @@ public class MainActivity extends Activity {
         //create the data handler
         dataHandler = ActionListSQliteOpenHelper.getInstance(this);
 
-        //populate the list of actions
-        populateActionList(); 
-
+        //no need to populate the list of actions, as this is done OnResume()
     }
 
     @Override
