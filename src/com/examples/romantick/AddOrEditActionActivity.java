@@ -36,7 +36,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	
 	//Controls
 	LinearLayout layout_EditControls = null;
-	EditText textView_Summary = null;
+	EditText editText_Summary = null;
 	Button button_Edit = null;
 	Button button_Delete = null;
 	Button button_Save = null;
@@ -97,7 +97,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	private void initialiseControls()
 	{
 		layout_EditControls = (LinearLayout) findViewById(R.id.layout_EditControls);
-		textView_Summary = (EditText) findViewById(R.id.editText_Summary);
+		editText_Summary = (EditText) findViewById(R.id.editText_Summary);
 		button_Edit = (Button) findViewById(R.id.button_Edit);
 		button_Delete = (Button) findViewById(R.id.button_Delete);
 		button_Save = (Button) findViewById(R.id.button_Save);
@@ -112,7 +112,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	private void setupEditStateScreen(Action action)
 	{
 		setEnableControls(false, layout_EditControls);
-		textView_Summary.setText(action.getSummary());
+		editText_Summary.setText(action.getSummary());
 		setButtonVisibility(true);
 	}
 
@@ -157,7 +157,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	private void addAction()
 	{
 		Action newAction = new Action();
-		newAction.setSummary(textView_Summary.getText().toString());
+		newAction.setSummary(editText_Summary.getText().toString());
 		dataHandler.addAction(newAction);
 
 		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD);
@@ -165,7 +165,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 
 	private void updateAction()
 	{
-		actionToEdit.setSummary(textView_Summary.getText().toString());
+		actionToEdit.setSummary(editText_Summary.getText().toString());
 		int updateResult = dataHandler.updateAction(actionToEdit);
 
 		if(updateResult > 0)
