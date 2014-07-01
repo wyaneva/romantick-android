@@ -201,10 +201,14 @@ public class AddOrEditActionActivity extends ActionBarActivity
 	    }
 	}
 
-	//Getters - useful for unit testing
+	//Getters and setters - useful for unit testing
 	public EnumActionActivityState getState() 
 	{
 		return state;
+	}
+	public void setState(EnumActionActivityState _state)
+	{
+		state = _state;
 	}
 
 	//-------------------------------------------------------------------
