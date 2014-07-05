@@ -4,6 +4,7 @@
     <!-- App and Activities -->
     <string name="app_name">RomanTick</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_action_list_activity">ActionList</string>
     <string name="title_activity_add_or_edit_action_activity">Action</string>
 
     <!-- Actions -->
@@ -13,8 +14,13 @@
     <string name="text_summary">Summary:</string>
 
 	<!-- Buttons -->
-    <string name="button_send">Send</string>
+	<!-- Main Activity -->
+	<string name="button_todo">To Do List</string>
+	<string name="buton_kiss_log">Kiss Log</string>
+	<string name="button_travel_ideas">Travel Ideas</string>
+	<!-- Action List -->
     <string name="button_add_new_action">Add New&#8230;</string>  <!-- &#8230; inserts '...' -->
+    <!-- New Action -->
 	<string name="button_edit">Edit&#8230;</string>
 	<string name="button_delete">Delete&#8230;</string>
     <string name="button_save">Save</string>

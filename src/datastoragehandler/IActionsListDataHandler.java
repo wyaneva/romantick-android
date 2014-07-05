@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.Action;
 
-public interface IDataHandler extends Serializable 
+public interface IActionsListDataHandler extends Serializable 
 {
 	public void addAction(Action action);
 	public List<Action> getAllActions();

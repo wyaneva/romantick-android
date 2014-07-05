@@ -25,9 +25,17 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.examples.romantick.ActionListActivity"
+            android:label="@string/title_activity_action_list_activity" 
+            android:parentActivityName="com.examples.romantick.ActionListActivity" >
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="com.example.romantick.MainActivity" />
+        </activity>
+        <activity
             android:name="com.examples.romantick.AddOrEditActionActivity"
             android:label="@string/title_activity_add_or_edit_action_activity" 
-            android:parentActivityName="com.examples.romantick.MainActivity" >
+            android:parentActivityName="com.examples.romantick.ActionListActivity" >
             <meta-data 
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />

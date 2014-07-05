@@ -9,7 +9,7 @@ import com.example.romantick.R.id;
 import com.example.romantick.R.layout;
 import com.example.romantick.R.menu;
 
-import datastoragehandler.IDataHandler;
+import datastoragehandler.IActionsListDataHandler;
 import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
 
 import android.support.v7.app.ActionBarActivity;
@@ -30,7 +30,7 @@ import android.widget.TextView;
 
 public class AddOrEditActionActivity extends ActionBarActivity 
 {
-	IDataHandler dataHandler = null;
+	IActionsListDataHandler dataHandler = null;
 	EnumActionActivityState state = null;
 	Action actionToEdit = null;
 	
@@ -55,8 +55,8 @@ public class AddOrEditActionActivity extends ActionBarActivity
 
 		//get the info that has been passed
 		Intent intent = getIntent();
-		state = (EnumActionActivityState)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_ACTIVITY_STATE);
-		actionToEdit = (Action)intent.getSerializableExtra(MainActivity.EXTRA_ACTION_TO_EDIT);
+		state = (EnumActionActivityState)intent.getSerializableExtra(ActionListActivity.EXTRA_ACTION_ACTIVITY_STATE);
+		actionToEdit = (Action)intent.getSerializableExtra(ActionListActivity.EXTRA_ACTION_TO_EDIT);
 
 		//setup the screen controls
 		switch (state) 

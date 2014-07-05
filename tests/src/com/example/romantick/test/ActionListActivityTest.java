@@ -11,20 +11,20 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.examples.romantick.AddOrEditActionActivity;
-import com.examples.romantick.MainActivity;
+import com.examples.romantick.ActionListActivity;
 
-public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActivity>
+public class ActionListActivityTest extends ActivityInstrumentationTestCase2<ActionListActivity>
 {
 	private Instrumentation instrumentation;
 	private ActivityMonitor addOrEditActivityMonitor;
 	
-	private MainActivity mainActivity;
+	private ActionListActivity mainActivity;
 	private ListView actionsList;
 	private Button addNewButton;
 
-	public MainActivityTest() 
+	public ActionListActivityTest() 
 	{
-		super(MainActivity.class);
+		super(ActionListActivity.class);
 	}
 
 	@Override

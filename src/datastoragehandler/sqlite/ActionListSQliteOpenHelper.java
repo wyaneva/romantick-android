@@ -3,7 +3,7 @@ package datastoragehandler.sqlite;
 import java.util.LinkedList;
 import java.util.List;
 
-import datastoragehandler.IDataHandler;
+import datastoragehandler.IActionsListDataHandler;
 
 import model.Action;
 import android.content.ContentValues;
@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.OpenableColumns;
 
-public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IDataHandler {
+public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IActionsListDataHandler {
 
 	private static ActionListSQliteOpenHelper singleton = null;
 	
