@@ -1,16 +1,13 @@
 package com.examples.romantick;
 
-import model.Action;
-import utils.EnumActionActivityState;
-
-import com.example.romantick.R;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+
+import com.example.romantick.R;
 
 public class MainActivity extends Activity
 {
@@ -47,9 +44,11 @@ public class MainActivity extends Activity
     
     public void showKissLog(View view)
     {
+    	//TODO
     }
     
     public void showTravelIdeasList(View view)
     {
+    	//TODO
     }
 }

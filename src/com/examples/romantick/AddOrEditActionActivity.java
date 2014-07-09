@@ -1,24 +1,12 @@
 package com.examples.romantick;
 
 import model.Action;
+import utils.Constants;
 import utils.EnumActionActivityState;
 import utils.UsefulFunctions;
-
-import com.example.romantick.R;
-import com.example.romantick.R.id;
-import com.example.romantick.R.layout;
-import com.example.romantick.R.menu;
-
-import datastoragehandler.IActionsListDataHandler;
-import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
-
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.content.Intent;
-import android.net.wifi.p2p.WifiP2pManager.UpnpServiceResponseListener;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+
+import com.example.romantick.R;
+
+import datastoragehandler.IActionsListDataHandler;
+import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
 
 public class AddOrEditActionActivity extends ActionBarActivity 
 {
@@ -55,8 +47,8 @@ public class AddOrEditActionActivity extends ActionBarActivity
 
 		//get the info that has been passed
 		Intent intent = getIntent();
-		state = (EnumActionActivityState)intent.getSerializableExtra(ActionListActivity.EXTRA_ACTION_ACTIVITY_STATE);
-		actionToEdit = (Action)intent.getSerializableExtra(ActionListActivity.EXTRA_ACTION_TO_EDIT);
+		state = (EnumActionActivityState)intent.getSerializableExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE);
+		actionToEdit = (Action)intent.getSerializableExtra(Constants.EXTRA_ACTION_TO_EDIT);
 
 		//setup the screen controls
 		switch (state) 

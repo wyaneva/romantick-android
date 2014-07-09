@@ -8,7 +8,13 @@ public class Action implements Serializable
 
 	private int id;
 	private String summary;
+	private boolean isDone;
 
+	public Action()
+	{
+		isDone = false;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -22,6 +28,16 @@ public class Action implements Serializable
 		this.summary = summary;
 	}
 
+	public boolean isDone() {
+		return isDone;
+	}
+	public void setDone(boolean isDone) {
+		this.isDone = isDone;
+	}
+	public void setDone(int isDone)
+	{
+		this.isDone = isDone == 0 ? false : true;
+	}
 	@Override
 	public String toString() 
 	{

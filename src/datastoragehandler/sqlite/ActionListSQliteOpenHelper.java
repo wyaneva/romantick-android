@@ -37,6 +37,7 @@ public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IAct
 		
 		ContentValues values = new ContentValues();
 		values.put(KEY_SUMMARY, action.getSummary());
+		values.put(KEY_IS_DONE, action.isDone());
 
 		db.insert(TABLE_NAME, null, values);
 		db.close();
@@ -47,6 +48,7 @@ public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IAct
 		
 		ContentValues values = new ContentValues();
 		values.put(KEY_SUMMARY, action.getSummary());
+		values.put(KEY_IS_DONE, action.isDone());
 		
 		int i = db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] {String.valueOf(action.getId())});
 		db.close();
@@ -77,6 +79,7 @@ public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IAct
 				action = new Action();
 				action.setId(Integer.parseInt(cursor.getString(KEY_ID_INDEX)));
 				action.setSummary(cursor.getString(KEY_SUMMARY_INDEX));
+				action.setDone(Integer.parseInt(cursor.getString(KEY_IS_DONE_INDEX)));
 				
 				result.add(action);
 			}
@@ -101,17 +104,23 @@ public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IAct
 	}
 
 	//--------------------------------
-	private static final long 	serialVersionUID = 1L;
-	private static final int 	DATABASE_VERSION 	= 2;
-	private static final String DATABASE_NAME 		= "ActionListDB";
-	private static final String TABLE_NAME 			= "actions";
-	private static final String TABLE_CREATE 		= "CREATE TABLE " + TABLE_NAME + " (" +
-						"id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-						"summary TEXT )";
-
 	//Actions table columns
 	private static final String KEY_ID				= "id";
 	private static final int	KEY_ID_INDEX		= 0;
 	private static final String KEY_SUMMARY			= "summary";
 	private static final int	KEY_SUMMARY_INDEX 	= 1;
+	private static final String	KEY_IS_DONE			= "isdone";
+	private static final int	KEY_IS_DONE_INDEX	= 2;
+	
+	private static final long 	serialVersionUID = 1L;
+	private static final int 	DATABASE_VERSION 	= 2;
+	private static final String DATABASE_NAME 		= "ActionListDB";
+	private static final String TABLE_NAME 			= "actions";
+	private static final String TABLE_CREATE 		
+					= "CREATE TABLE " + TABLE_NAME + " (" +
+						KEY_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						KEY_SUMMARY + " TEXT, " +
+						KEY_IS_DONE + " INTEGER )";
+
+
 }
