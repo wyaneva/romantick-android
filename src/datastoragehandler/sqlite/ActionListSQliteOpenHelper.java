@@ -3,15 +3,13 @@ package datastoragehandler.sqlite;
 import java.util.LinkedList;
 import java.util.List;
 
-import datastoragehandler.IActionsListDataHandler;
-
 import model.Action;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.OpenableColumns;
+import datastoragehandler.IActionsListDataHandler;
 
 public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IActionsListDataHandler {
 

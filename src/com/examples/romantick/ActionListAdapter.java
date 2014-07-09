@@ -2,16 +2,9 @@ package com.examples.romantick;
 
 import java.util.List;
 
+import model.Action;
 import utils.Constants;
 import utils.EnumActionActivityState;
-
-import com.example.romantick.R;
-
-import datastoragehandler.IActionsListDataHandler;
-import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
-
-import model.Action;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -20,6 +13,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+
+import com.example.romantick.R;
+
+import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
 
 public class ActionListAdapter extends BaseAdapter
 {
