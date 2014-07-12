@@ -44,7 +44,8 @@ public class MainActivity extends Activity
     
     public void showKissLog(View view)
     {
-    	//TODO
+    	Intent intent = new Intent(this, ActivityListKisses.class);
+    	startActivity(intent);
     }
     
     public void showTravelIdeasList(View view)

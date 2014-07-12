@@ -1,9 +1,9 @@
 package com.examples.romantick;
 
 import model.Action;
-import utils.adapters.ActionListAdapter;
+import utils.adapters.AdapterActionList;
 import utils.general.Constants;
-import utils.general.EnumActionActivityState;
+import utils.general.EnumAddOrEditState;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import datastoragehandler.sqlite.SQLiteOpenHelperActions;
 public class ActivityListActions extends Activity {
 
 	private IDataHandlerActions dataHandler = null;
-	private ActionListAdapter actionListAdapter;
+	private AdapterActionList actionListAdapter;
 	
 	//controls
 	private ListView listView_allActions = null;
@@ -37,7 +37,7 @@ public class ActivityListActions extends Activity {
         dataHandler = SQLiteOpenHelperActions.getInstance(this);
         
         //create the Action List Adapter
-        actionListAdapter = new ActionListAdapter(this);
+        actionListAdapter = new AdapterActionList(this);
 
         //no need to populate the list of actions, as this is done OnResume()
     }
@@ -70,8 +70,8 @@ public class ActivityListActions extends Activity {
     	Intent intent = new Intent(this, ActivityAddOrEditAction.class);
 
     	//add the data handler to the intent
-    	intent.putExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.ADD);
-    	intent.putExtra(Constants.EXTRA_ACTION_TO_EDIT, (Action)null);
+    	intent.putExtra(Constants.EXTRA_ADD_OR_EDIT_STATE, EnumAddOrEditState.ADD);
+    	intent.putExtra(Constants.EXTRA_TODO_TO_EDIT, (Action)null);
     	startActivity(intent);
     }
 
@@ -80,5 +80,11 @@ public class ActivityListActions extends Activity {
     {
     	actionListAdapter.setActionList(dataHandler.getAllActions());
     	listView_allActions.setAdapter(actionListAdapter);
+    }
+    
+    //Getters and setters
+    public IDataHandlerActions getDataHandler()
+    {
+    	return dataHandler;
     }
 }

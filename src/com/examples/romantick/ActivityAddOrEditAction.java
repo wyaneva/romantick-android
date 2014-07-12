@@ -2,7 +2,7 @@ package com.examples.romantick;
 
 import model.Action;
 import utils.general.Constants;
-import utils.general.EnumActionActivityState;
+import utils.general.EnumAddOrEditState;
 import utils.general.UsefulFunctions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,7 +23,7 @@ import datastoragehandler.sqlite.SQLiteOpenHelperActions;
 public class ActivityAddOrEditAction extends ActionBarActivity 
 {
 	IDataHandlerActions dataHandler = null;
-	EnumActionActivityState state = null;
+	EnumAddOrEditState state = null;
 	Action actionToEdit = null;
 	
 	//Controls
@@ -47,8 +47,8 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 
 		//get the info that has been passed
 		Intent intent = getIntent();
-		state = (EnumActionActivityState)intent.getSerializableExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE);
-		actionToEdit = (Action)intent.getSerializableExtra(Constants.EXTRA_ACTION_TO_EDIT);
+		state = (EnumAddOrEditState)intent.getSerializableExtra(Constants.EXTRA_ADD_OR_EDIT_STATE);
+		actionToEdit = (Action)intent.getSerializableExtra(Constants.EXTRA_TODO_TO_EDIT);
 
 		//setup the screen controls
 		switch (state) 
@@ -194,11 +194,11 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	}
 
 	//Getters and setters - useful for unit testing
-	public EnumActionActivityState getState() 
+	public EnumAddOrEditState getState() 
 	{
 		return state;
 	}
-	public void setState(EnumActionActivityState _state)
+	public void setState(EnumAddOrEditState _state)
 	{
 		state = _state;
 	}

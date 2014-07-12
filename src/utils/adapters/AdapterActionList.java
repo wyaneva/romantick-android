@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Action;
 import utils.general.Constants;
-import utils.general.EnumActionActivityState;
+import utils.general.EnumAddOrEditState;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,17 +15,15 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.romantick.R;
-import com.examples.romantick.ActivityListActions;
 import com.examples.romantick.ActivityAddOrEditAction;
+import com.examples.romantick.ActivityListActions;
 
-import datastoragehandler.sqlite.SQLiteOpenHelperActions;
-
-public class ActionListAdapter extends BaseAdapter
+public class AdapterActionList extends BaseAdapter
 {
 	ActivityListActions actionListActivity;
 	List<Action> actionsList;
 	
-	public ActionListAdapter(ActivityListActions _activity)
+	public AdapterActionList(ActivityListActions _activity)
 	{
 		actionListActivity = _activity;
 	}
@@ -66,13 +64,13 @@ public class ActionListAdapter extends BaseAdapter
             public void onClick(View view) 
             {
     	        Intent intent = new Intent(actionListActivity, ActivityAddOrEditAction.class);
-            	intent.putExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.EDIT);
-            	intent.putExtra(Constants.EXTRA_ACTION_TO_EDIT, action);
+            	intent.putExtra(Constants.EXTRA_ADD_OR_EDIT_STATE, EnumAddOrEditState.EDIT);
+            	intent.putExtra(Constants.EXTRA_TODO_TO_EDIT, action);
             	actionListActivity.startActivity(intent);
             }
         });
  
-        final CheckBox isDoneCheckBox = (CheckBox) view.findViewById(R.id.checkBox_isDone);
+        final CheckBox isDoneCheckBox = (CheckBox) view.findViewById(R.id.checkBox_ActionIsDone);
         isDoneCheckBox.setChecked(action.isDone());
         isDoneCheckBox.setOnClickListener(new View.OnClickListener() 
         {
@@ -80,7 +78,7 @@ public class ActionListAdapter extends BaseAdapter
 			public void onClick(View v) 
 			{
 				action.setDone(isDoneCheckBox.isChecked());
-				SQLiteOpenHelperActions.getInstance(actionListActivity).updateAction(action);
+				actionListActivity.getDataHandler().updateAction(action);
 			}
 		}); 
  

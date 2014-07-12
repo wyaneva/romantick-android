@@ -26,7 +26,7 @@
         </activity>
         <activity
             android:name="com.examples.romantick.ActivityListActions"
-            android:label="@string/title_activity_action_list_activity" 
+            android:label="@string/title_activity_list_actions" 
             android:parentActivityName="com.examples.romantick.ActivityListActions" >
             <meta-data 
                 android:name="android.support.PARENT_ACTIVIY"
@@ -34,8 +34,24 @@
         </activity>
         <activity
             android:name="com.examples.romantick.ActivityAddOrEditAction"
-            android:label="@string/title_activity_add_or_edit_action_activity" 
+            android:label="@string/title_activity_add_or_edit_action" 
             android:parentActivityName="com.examples.romantick.ActivityListActions" >
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="com.example.romantick.MainActivity" />
+        </activity>
+                <activity
+            android:name="com.examples.romantick.ActivityListKisses"
+            android:label="@string/title_activity_list_kisses" 
+            android:parentActivityName="com.examples.romantick.ActivityListKisses" >
+            <meta-data 
+                android:name="android.support.PARENT_ACTIVIY"
+                android:value="com.example.romantick.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.examples.romantick.ActivityAddOrEditKiss"
+            android:label="@string/title_activity_add_or_edit_kiss" 
+            android:parentActivityName="com.examples.romantick.ActivityListKisses" >
             <meta-data 
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />

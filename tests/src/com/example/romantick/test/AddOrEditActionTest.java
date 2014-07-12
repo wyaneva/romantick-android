@@ -1,6 +1,6 @@
 package com.example.romantick.test;
 
-import utils.general.EnumActionActivityState;
+import utils.general.EnumAddOrEditState;
 
 import com.examples.romantick.ActivityAddOrEditAction;
 
@@ -35,8 +35,8 @@ public class AddOrEditActionTest extends ActivityUnitTestCase<ActivityAddOrEditA
 	public void testSaveInAddState()
 	{
 		//test save button in ADD state
-		addOrEditActionActivity.setState(EnumActionActivityState.ADD);
-		assertEquals(EnumActionActivityState.ADD, addOrEditActionActivity.getState());
+		addOrEditActionActivity.setState(EnumAddOrEditState.ADD);
+		assertEquals(EnumAddOrEditState.ADD, addOrEditActionActivity.getState());
 
 		summaryEditText.setText("Test 1");
 		

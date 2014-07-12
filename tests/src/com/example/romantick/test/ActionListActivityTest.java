@@ -1,7 +1,7 @@
 package com.example.romantick.test;
 
 import model.Action;
-import utils.general.EnumActionActivityState;
+import utils.general.EnumAddOrEditState;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
@@ -37,7 +37,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 
 		mainActivity = getActivity();
 		actionsList = (ListView) mainActivity.findViewById(com.example.romantick.R.id.listView_allActions);
-		addNewButton = (Button) mainActivity.findViewById(com.example.romantick.R.id.button_AddNew);
+		addNewButton = (Button) mainActivity.findViewById(com.example.romantick.R.id.button_AddNewAction);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 		assertNotNull(addOrEditActionActivity);
 		
 		//test that the state of the activity is ADD
-		assertEquals(EnumActionActivityState.EDIT, addOrEditActionActivity.getState());
+		assertEquals(EnumAddOrEditState.EDIT, addOrEditActionActivity.getState());
 		
 		addOrEditActionActivity.finish();
 	}
@@ -107,7 +107,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 		assertNotNull(addOrEditActionActivity);
 		
 		//test that the state of the activity is ADD
-		assertEquals(EnumActionActivityState.ADD, addOrEditActionActivity.getState());
+		assertEquals(EnumAddOrEditState.ADD, addOrEditActionActivity.getState());
 		
 		addOrEditActionActivity.finish();
 	}

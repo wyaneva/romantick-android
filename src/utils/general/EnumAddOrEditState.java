@@ -1,6 +1,6 @@
 package utils.general;
 
-public enum EnumActionActivityState 
+public enum EnumAddOrEditState 
 {
 	ADD,
 	EDIT

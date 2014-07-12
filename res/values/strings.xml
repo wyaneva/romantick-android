@@ -4,27 +4,29 @@
     <!-- App and Activities -->
     <string name="app_name">RomanTick</string>
     <string name="title_activity_main">MainActivity</string>
-    <string name="title_activity_action_list_activity">To Do List</string>
-    <string name="title_activity_add_or_edit_action_activity">To Do</string>
+    <string name="title_activity_list_actions">To Do List</string>
+    <string name="title_activity_add_or_edit_action">To Do</string>
+    <string name="title_activity_list_kisses">Kiss Log</string>
+    <string name="title_activity_add_or_edit_kiss">Kiss</string>
 
     <!-- Actions -->
     <string name="action_settings">Settings</string>
 
     <!-- Text Views -->
     <string name="text_summary">Summary:</string>
+    <string name="text_date">Date:</string>
+    <string name="text_noDate">No Date</string>
 
 	<!-- Buttons -->
-	<!-- Main Activity -->
 	<string name="button_todo">To Do List</string>
 	<string name="buton_kiss_log">Kiss Log</string>
 	<string name="button_travel_ideas">Travel Ideas</string>
-	<!-- Action List -->
-    <string name="button_add_new_action">Add New&#8230;</string>  <!-- &#8230; inserts '...' -->
-    <!-- New Action -->
+    <string name="button_add_new">Add New&#8230;</string>  <!-- &#8230; inserts '...' -->
 	<string name="button_edit">Edit&#8230;</string>
 	<string name="button_delete">Delete&#8230;</string>
     <string name="button_save">Save</string>
 	<string name="button_cancel">Cancel</string>
+	<string name="button_select_date">Set Date</string>
 
     <!-- Misc -->
     <string name="hello_world">Hello world!</string>
