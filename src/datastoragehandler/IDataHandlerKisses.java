@@ -10,4 +10,5 @@ public interface IDataHandlerKisses
 	public List<Kiss> getAllKisses();
 	public int updateKiss(Kiss kiss);
 	public void deleteKiss(Kiss kiss);
+	public List<Kiss> queryKissesDoneStatus(boolean status);
 }

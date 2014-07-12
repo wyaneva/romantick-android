@@ -101,6 +101,43 @@ public class SQLiteOpenHelperKisses extends SQLiteOpenHelper implements IDataHan
 	}
 	
 	@Override
+	public List<Kiss> queryKissesDoneStatus(boolean status) 
+	{
+		List<Kiss> result = new LinkedList<Kiss>();
+
+		String query;
+		
+		if(status)
+		{
+			query = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_IS_DONE + " != '0'"; 
+		}
+		else
+		{
+			query = "SELECT * FROM " + TABLE_NAME + " WHERE " + KEY_IS_DONE + " = '0'"; 
+		}
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(query, null);
+
+		Kiss kiss = null;
+		if(cursor.moveToFirst())
+		{
+			do
+			{
+				kiss = new Kiss();
+				kiss.setId(Integer.parseInt(cursor.getString(KEY_ID_INDEX)));
+				kiss.setSummary(cursor.getString(KEY_SUMMARY_INDEX));
+				kiss.setDone(Integer.parseInt(cursor.getString(KEY_IS_DONE_INDEX)));
+				kiss.setDate(new Date(Long.parseLong((cursor.getString(KEY_DATE_INDEX)))));
+				
+				result.add(kiss);
+			}
+			while (cursor.moveToNext());
+		}
+
+		return result;
+	}
+	
+	@Override
 	public void onCreate(SQLiteDatabase db) 
 	{
 		db.execSQL(TABLE_CREATE);
@@ -124,7 +161,6 @@ public class SQLiteOpenHelperKisses extends SQLiteOpenHelper implements IDataHan
 	private static final String KEY_DATE			= "date";
 	private static final int	KEY_DATE_INDEX		= 3;
 	
-	private static final long 	serialVersionUID    = 1L;
 	private static final int 	DATABASE_VERSION 	= 2;
 	private static final String DATABASE_NAME 		= "KissListDB";
 	private static final String TABLE_NAME 			= "kisses";

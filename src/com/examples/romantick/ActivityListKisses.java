@@ -1,6 +1,10 @@
 package com.examples.romantick;
 
+import java.util.List;
+
 import model.Action;
+import model.Kiss;
+import model.filters.FilterKissesBase;
 import utils.adapters.AdapterKissList;
 import utils.general.Constants;
 import utils.general.EnumAddOrEditState;
@@ -19,7 +23,9 @@ import datastoragehandler.sqlite.SQLiteOpenHelperKisses;
 public class ActivityListKisses extends Activity 
 {
 	private IDataHandlerKisses dataHandler = null;
-	private AdapterKissList kissListAdapter;
+	private AdapterKissList kissListAdapter = null;
+	
+	private List<FilterKissesBase> filters = null;
 	
 	//controls
 	private ListView listView_allKisses = null;
@@ -78,7 +84,17 @@ public class ActivityListKisses extends Activity
     //Helper functions
     private void populateKissList()
     {
-    	kissListAdapter.setKissList(dataHandler.getAllKisses());
+    	List<Kiss> kissList = dataHandler.getAllKisses();
+    	
+    	if(filters != null)
+    	{
+    		for(FilterKissesBase filter : filters)
+    		{
+    			kissList = filter.applyFilter(kissList);
+    		}
+    	}
+    	
+    	kissListAdapter.setKissList(kissList);
     	listView_allKisses.setAdapter(kissListAdapter);
     }
     
