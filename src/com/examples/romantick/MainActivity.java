@@ -38,7 +38,7 @@ public class MainActivity extends Activity
 	//Button Actions
     public void showToDoList(View view)
     {
-    	Intent intent = new Intent(this, ActionListActivity.class);
+    	Intent intent = new Intent(this, ActivityListActions.class);
     	startActivity(intent);
     }
     

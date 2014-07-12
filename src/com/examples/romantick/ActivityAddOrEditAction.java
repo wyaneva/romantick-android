@@ -1,9 +1,9 @@
 package com.examples.romantick;
 
 import model.Action;
-import utils.Constants;
-import utils.EnumActionActivityState;
-import utils.UsefulFunctions;
+import utils.general.Constants;
+import utils.general.EnumActionActivityState;
+import utils.general.UsefulFunctions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -17,12 +17,12 @@ import android.widget.LinearLayout;
 
 import com.example.romantick.R;
 
-import datastoragehandler.IActionsListDataHandler;
-import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
+import datastoragehandler.IDataHandlerActions;
+import datastoragehandler.sqlite.SQLiteOpenHelperActions;
 
-public class AddOrEditActionActivity extends ActionBarActivity 
+public class ActivityAddOrEditAction extends ActionBarActivity 
 {
-	IActionsListDataHandler dataHandler = null;
+	IDataHandlerActions dataHandler = null;
 	EnumActionActivityState state = null;
 	Action actionToEdit = null;
 	
@@ -43,7 +43,7 @@ public class AddOrEditActionActivity extends ActionBarActivity
 		initialiseControls();
 
 		//set up the datahandler
-		dataHandler = ActionListSQliteOpenHelper.getInstance(this);
+		dataHandler = SQLiteOpenHelperActions.getInstance(this);
 
 		//get the info that has been passed
 		Intent intent = getIntent();

@@ -1,8 +1,9 @@
 package com.examples.romantick;
 
 import model.Action;
-import utils.Constants;
-import utils.EnumActionActivityState;
+import utils.adapters.ActionListAdapter;
+import utils.general.Constants;
+import utils.general.EnumActionActivityState;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,12 +13,12 @@ import android.widget.ListView;
 
 import com.example.romantick.R;
 
-import datastoragehandler.IActionsListDataHandler;
-import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
+import datastoragehandler.IDataHandlerActions;
+import datastoragehandler.sqlite.SQLiteOpenHelperActions;
 
-public class ActionListActivity extends Activity {
+public class ActivityListActions extends Activity {
 
-	private IActionsListDataHandler dataHandler = null;
+	private IDataHandlerActions dataHandler = null;
 	private ActionListAdapter actionListAdapter;
 	
 	//controls
@@ -26,14 +27,14 @@ public class ActionListActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_action_list);
+        setContentView(R.layout.activity_list_actions);
 
         //initialise
         initialiseControls();
         //setListeners();
         
         //create the data handler
-        dataHandler = ActionListSQliteOpenHelper.getInstance(this);
+        dataHandler = SQLiteOpenHelperActions.getInstance(this);
         
         //create the Action List Adapter
         actionListAdapter = new ActionListAdapter(this);
@@ -66,7 +67,7 @@ public class ActionListActivity extends Activity {
     //Button Actions
     public void addNewAction(View view)
     {
-    	Intent intent = new Intent(this, AddOrEditActionActivity.class);
+    	Intent intent = new Intent(this, ActivityAddOrEditAction.class);
 
     	//add the data handler to the intent
     	intent.putExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.ADD);

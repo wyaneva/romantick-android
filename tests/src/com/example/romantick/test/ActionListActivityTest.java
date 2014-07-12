@@ -1,7 +1,7 @@
 package com.example.romantick.test;
 
 import model.Action;
-import utils.EnumActionActivityState;
+import utils.general.EnumActionActivityState;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
@@ -10,21 +10,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.examples.romantick.AddOrEditActionActivity;
-import com.examples.romantick.ActionListActivity;
+import com.examples.romantick.ActivityAddOrEditAction;
+import com.examples.romantick.ActivityListActions;
 
-public class ActionListActivityTest extends ActivityInstrumentationTestCase2<ActionListActivity>
+public class ActionListActivityTest extends ActivityInstrumentationTestCase2<ActivityListActions>
 {
 	private Instrumentation instrumentation;
 	private ActivityMonitor addOrEditActivityMonitor;
 	
-	private ActionListActivity mainActivity;
+	private ActivityListActions mainActivity;
 	private ListView actionsList;
 	private Button addNewButton;
 
 	public ActionListActivityTest() 
 	{
-		super(ActionListActivity.class);
+		super(ActivityListActions.class);
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 		super.setUp();
 
 		instrumentation = getInstrumentation();
-		addOrEditActivityMonitor = instrumentation.addMonitor(AddOrEditActionActivity.class.getName(), null, false);
+		addOrEditActivityMonitor = instrumentation.addMonitor(ActivityAddOrEditAction.class.getName(), null, false);
 
 		mainActivity = getActivity();
 		actionsList = (ListView) mainActivity.findViewById(com.example.romantick.R.id.listView_allActions);
@@ -53,7 +53,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 
 	public void testUpdateExisting() 
 	{
-		AddOrEditActionActivity addOrEditActionActivity = (AddOrEditActionActivity) addOrEditActivityMonitor.getLastActivity();
+		ActivityAddOrEditAction addOrEditActionActivity = (ActivityAddOrEditAction) addOrEditActivityMonitor.getLastActivity();
 		
 		//test if pressing the AddNew button starts the AddOrEditActivity
 		assertNull(addOrEditActionActivity);;
@@ -79,7 +79,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 			}
 		});
         
-		addOrEditActionActivity = (AddOrEditActionActivity) instrumentation.waitForMonitorWithTimeout(addOrEditActivityMonitor, 5000);
+		addOrEditActionActivity = (ActivityAddOrEditAction) instrumentation.waitForMonitorWithTimeout(addOrEditActivityMonitor, 5000);
 		assertNotNull(addOrEditActionActivity);
 		
 		//test that the state of the activity is ADD
@@ -90,7 +90,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 	
 	public void testAddNew()
 	{
-		AddOrEditActionActivity addOrEditActionActivity = (AddOrEditActionActivity) addOrEditActivityMonitor.getLastActivity();
+		ActivityAddOrEditAction addOrEditActionActivity = (ActivityAddOrEditAction) addOrEditActivityMonitor.getLastActivity();
 		
 		//test if pressing the AddNew button starts the AddOrEditActivity
 		assertNull(addOrEditActionActivity);
@@ -103,7 +103,7 @@ public class ActionListActivityTest extends ActivityInstrumentationTestCase2<Act
 			}
 		});
 
-		addOrEditActionActivity = (AddOrEditActionActivity) instrumentation.waitForMonitorWithTimeout(addOrEditActivityMonitor, 5000);
+		addOrEditActionActivity = (ActivityAddOrEditAction) instrumentation.waitForMonitorWithTimeout(addOrEditActivityMonitor, 5000);
 		assertNotNull(addOrEditActionActivity);
 		
 		//test that the state of the activity is ADD

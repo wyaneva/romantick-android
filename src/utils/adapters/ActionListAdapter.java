@@ -1,10 +1,10 @@
-package com.examples.romantick;
+package utils.adapters;
 
 import java.util.List;
 
 import model.Action;
-import utils.Constants;
-import utils.EnumActionActivityState;
+import utils.general.Constants;
+import utils.general.EnumActionActivityState;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -15,15 +15,17 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.romantick.R;
+import com.examples.romantick.ActivityListActions;
+import com.examples.romantick.ActivityAddOrEditAction;
 
-import datastoragehandler.sqlite.ActionListSQliteOpenHelper;
+import datastoragehandler.sqlite.SQLiteOpenHelperActions;
 
 public class ActionListAdapter extends BaseAdapter
 {
-	ActionListActivity actionListActivity;
+	ActivityListActions actionListActivity;
 	List<Action> actionsList;
 	
-	public ActionListAdapter(ActionListActivity _activity)
+	public ActionListAdapter(ActivityListActions _activity)
 	{
 		actionListActivity = _activity;
 	}
@@ -63,7 +65,7 @@ public class ActionListAdapter extends BaseAdapter
             @Override
             public void onClick(View view) 
             {
-    	        Intent intent = new Intent(actionListActivity, AddOrEditActionActivity.class);
+    	        Intent intent = new Intent(actionListActivity, ActivityAddOrEditAction.class);
             	intent.putExtra(Constants.EXTRA_ACTION_ACTIVITY_STATE, EnumActionActivityState.EDIT);
             	intent.putExtra(Constants.EXTRA_ACTION_TO_EDIT, action);
             	actionListActivity.startActivity(intent);
@@ -78,7 +80,7 @@ public class ActionListAdapter extends BaseAdapter
 			public void onClick(View v) 
 			{
 				action.setDone(isDoneCheckBox.isChecked());
-				ActionListSQliteOpenHelper.getInstance(actionListActivity).updateAction(action);
+				SQLiteOpenHelperActions.getInstance(actionListActivity).updateAction(action);
 			}
 		}); 
  

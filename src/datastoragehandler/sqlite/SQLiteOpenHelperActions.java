@@ -9,22 +9,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import datastoragehandler.IActionsListDataHandler;
+import datastoragehandler.IDataHandlerActions;
 
-public class ActionListSQliteOpenHelper extends SQLiteOpenHelper implements IActionsListDataHandler {
+public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHandlerActions {
 
-	private static ActionListSQliteOpenHelper singleton = null;
+	private static SQLiteOpenHelperActions singleton = null;
 	
-	public static ActionListSQliteOpenHelper getInstance(Context context)
+	public static SQLiteOpenHelperActions getInstance(Context context)
 	{
 		if(singleton == null)
 		{
-			singleton = new ActionListSQliteOpenHelper(context);
+			singleton = new SQLiteOpenHelperActions(context);
 		}
 		
 		return singleton;
 	}
-	private ActionListSQliteOpenHelper(Context context)
+	private SQLiteOpenHelperActions(Context context)
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}

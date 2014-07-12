@@ -1,22 +1,22 @@
 package com.example.romantick.test;
 
-import utils.EnumActionActivityState;
+import utils.general.EnumActionActivityState;
 
-import com.examples.romantick.AddOrEditActionActivity;
+import com.examples.romantick.ActivityAddOrEditAction;
 
 import android.test.ActivityUnitTestCase;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class AddOrEditActionTest extends ActivityUnitTestCase<AddOrEditActionActivity> 
+public class AddOrEditActionTest extends ActivityUnitTestCase<ActivityAddOrEditAction> 
 {
-	AddOrEditActionActivity addOrEditActionActivity;
+	ActivityAddOrEditAction addOrEditActionActivity;
 	Button saveButton;
 	EditText summaryEditText;
 
 	public AddOrEditActionTest() 
 	{
-		super(AddOrEditActionActivity.class);
+		super(ActivityAddOrEditAction.class);
 	}
 	
 	@Override
