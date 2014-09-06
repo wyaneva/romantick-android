@@ -5,6 +5,7 @@ import java.util.List;
 import model.Action;
 import model.Kiss;
 import model.filters.FilterKissesBase;
+import model.filters.FiltersManager;
 import utils.adapters.AdapterKissList;
 import utils.general.Constants;
 import utils.general.EnumAddOrEditState;
@@ -28,8 +29,6 @@ public class ActivityListKisses extends Activity
 {
 	private IDataHandlerKisses dataHandler = null;
 	private AdapterKissList kissListAdapter = null;
-	
-	private List<FilterKissesBase> filters = null;
 	
 	//controls
 	private TextView textView_filtersLabel = null;
@@ -105,14 +104,19 @@ public class ActivityListKisses extends Activity
     public void clearFilters(View view)
     {
     	Log.d("TAG", "clearing filters");
+    	FiltersManager.clearKissesFilters();
+    	populateKissList();
     }
 
     //Helper functions
     private void populateKissList()
     {
+    	Log.d("TAG", "populating kiss list");
+    	
     	List<Kiss> kissList = dataHandler.getAllKisses();
     	
-    	if(filters != null)
+    	List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
+    	if(filters != null && filters.size() > 0)
     	{
     		Log.d("TAG", "filters to apply");
     		for(FilterKissesBase filter : filters)

@@ -29,14 +29,14 @@
             android:padding="5dp" >
 
             <CheckBox
-                android:id="@+id/checkBox_status"
+                android:id="@+id/checkBox_KissesStatus"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:gravity="center_vertical|start"
                 android:text="@string/text_status" />
 
             <Spinner
-                android:id="@+id/spinner_status"
+                android:id="@+id/spinner_KissesStatus"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3" 
                 android:layout_gravity="left"
@@ -56,21 +56,21 @@
             android:padding="5dp" >
 
             <CheckBox
-                android:id="@+id/checkBox_date"
+                android:id="@+id/checkBox_KissesDate"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3"
                 android:gravity="center_vertical|start"
                 android:text="@string/text_date" />
 
             <Spinner
-                android:id="@+id/spinner_date"
+                android:id="@+id/spinner_KissesDate"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.3" 
                 android:layout_gravity="left"
                 android:entries="@array/spinnerDateItems"/>
 
             <TextView
-                android:id="@+id/textView_selectedDate"
+                android:id="@+id/textView_selectedKissesDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" 
@@ -84,6 +84,7 @@
         android:id="@+id/buttonOk"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:onClick="saveFilters"
         android:background="@android:color/holo_green_light"
         android:text="@string/button_ok" />
 
