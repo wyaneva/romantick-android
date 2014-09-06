@@ -11,9 +11,13 @@ import utils.general.EnumAddOrEditState;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.GridLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.romantick.R;
 
@@ -28,6 +32,8 @@ public class ActivityListKisses extends Activity
 	private List<FilterKissesBase> filters = null;
 	
 	//controls
+	private TextView textView_filtersLabel = null;
+	private GridLayout gridLayout_filters = null;
 	private ListView listView_allKisses = null;
 	
     @Override
@@ -37,7 +43,7 @@ public class ActivityListKisses extends Activity
 
         //initialise
         initialiseControls();
-        //setListeners();
+        setListeners();
         
         //create the data handler
         dataHandler = SQLiteOpenHelperKisses.getInstance(this);
@@ -67,7 +73,22 @@ public class ActivityListKisses extends Activity
     //Initialise
     private void initialiseControls()
     {
+    	textView_filtersLabel = (TextView) findViewById(R.id.textView_filters);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
+    	gridLayout_filters = (GridLayout) findViewById(R.id.gridLayout_filters);
+    }
+    
+    private void setListeners()
+    {
+    	textView_filtersLabel.setOnClickListener(
+    			new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) 
+					{
+						setFilters();
+					}
+				});
     }
 
     //Button Actions
@@ -80,6 +101,11 @@ public class ActivityListKisses extends Activity
     	intent.putExtra(Constants.EXTRA_TODO_TO_EDIT, (Action)null);
     	startActivity(intent);
     }
+    
+    public void clearFilters(View view)
+    {
+    	Log.d("TAG", "clearing filters");
+    }
 
     //Helper functions
     private void populateKissList()
@@ -88,6 +114,7 @@ public class ActivityListKisses extends Activity
     	
     	if(filters != null)
     	{
+    		Log.d("TAG", "filters to apply");
     		for(FilterKissesBase filter : filters)
     		{
     			kissList = filter.applyFilter(kissList);
@@ -97,7 +124,16 @@ public class ActivityListKisses extends Activity
     	kissListAdapter.setKissList(kissList);
     	listView_allKisses.setAdapter(kissListAdapter);
     }
-    
+    public void setFilters()
+    {
+    	Log.d("TAG", "adding filters");
+    	
+    	Intent intent = new Intent(this, ActivityFilterKisses.class);
+
+    	//add the data handler to the intent
+    	startActivity(intent);
+    } 
+
     //Getters and setters
     public IDataHandlerKisses getDataHandler()
     {

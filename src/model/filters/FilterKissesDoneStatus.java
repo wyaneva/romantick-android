@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.Kiss;
 import utils.general.Constants;
-import utils.general.EnumFilterType;
 
 public class FilterKissesDoneStatus extends FilterKissesBase
 {

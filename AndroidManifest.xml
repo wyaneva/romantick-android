@@ -4,8 +4,7 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission 
-        android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -21,40 +20,45 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.examples.romantick.ActivityListActions"
-            android:label="@string/title_activity_list_actions" 
+            android:label="@string/title_activity_list_actions"
             android:parentActivityName="com.examples.romantick.ActivityListActions" >
-            <meta-data 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />
         </activity>
         <activity
             android:name="com.examples.romantick.ActivityAddOrEditAction"
-            android:label="@string/title_activity_add_or_edit_action" 
+            android:label="@string/title_activity_add_or_edit_action"
             android:parentActivityName="com.examples.romantick.ActivityListActions" >
-            <meta-data 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />
         </activity>
-                <activity
+        <activity
             android:name="com.examples.romantick.ActivityListKisses"
-            android:label="@string/title_activity_list_kisses" 
+            android:label="@string/title_activity_list_kisses"
             android:parentActivityName="com.examples.romantick.ActivityListKisses" >
-            <meta-data 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />
         </activity>
         <activity
             android:name="com.examples.romantick.ActivityAddOrEditKiss"
-            android:label="@string/title_activity_add_or_edit_kiss" 
+            android:label="@string/title_activity_add_or_edit_kiss"
             android:parentActivityName="com.examples.romantick.ActivityListKisses" >
-            <meta-data 
+            <meta-data
                 android:name="android.support.PARENT_ACTIVIY"
                 android:value="com.example.romantick.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.examples.romantick.ActivityFilterKisses"
+            android:label="@string/title_activity_filter_kisses" >
         </activity>
     </application>
 
