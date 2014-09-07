@@ -43,4 +43,9 @@ public class FilterKissesDoneStatus extends FilterKissesBase
 		
 		return result;
 	}
+	
+	public boolean getDoneStatus()
+	{
+		return doneStatus;
+	}
 }

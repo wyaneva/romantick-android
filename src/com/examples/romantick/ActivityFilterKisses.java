@@ -4,6 +4,7 @@ import java.util.List;
 
 import utils.general.Constants;
 
+import model.Kiss;
 import model.filters.FilterKissesBase;
 import model.filters.FilterKissesDoneStatus;
 import model.filters.FiltersManager;
@@ -24,7 +25,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.os.Build;
 
@@ -44,14 +48,63 @@ public class ActivityFilterKisses extends Activity {
 		
 		//Initialise controls
 		initialiseControls();
+		
+		//Set listeners
+		setListeners();
+		
+		//Set initial status of the controls
+		setInitialState();
 	}
 	
+	//Initialisation
 	private void initialiseControls()
 	{
 		checkBox_Status = (CheckBox) findViewById(R.id.checkBox_KissesStatus);
 		spinner_Status = (Spinner) findViewById(R.id.spinner_KissesStatus);
+		
 		checkBox_Date = (CheckBox) findViewById(R.id.checkBox_KissesDate);
 		spinner_Date = (Spinner) findViewById(R.id.spinner_KissesDate);
+	}
+	
+	private void setListeners()
+	{
+		checkBox_Status.setOnCheckedChangeListener(
+				new OnCheckedChangeListener() {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
+					{
+						setEnabledStatusControls(isChecked);
+					}
+				});
+		
+		checkBox_Date.setOnCheckedChangeListener(
+				new OnCheckedChangeListener() {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
+					{
+						setEnabledDateControls(isChecked);
+					}
+				});
+	}
+	
+	private void setInitialState()
+	{
+		setEnabledStatusControls(false);
+		setEnabledDateControls(false);
+		
+		List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
+		for(FilterKissesBase filter : filters)
+		{
+			if(filter != null)
+			{
+                if(filter instanceof FilterKissesDoneStatus)
+                {
+                	setDoneStatusControls((FilterKissesDoneStatus)filter);
+                }
+			}
+		}
 	}
 	
 	//Button actions
@@ -78,16 +131,74 @@ public class ActivityFilterKisses extends Activity {
 	//Helper Functions
 	private FilterKissesDoneStatus getDoneStatusFilter()
 	{
-		if(spinner_Status.getSelectedItemPosition() == 0)
+		String notDone = getResources().getString(R.string.not_done);
+		String done = getResources().getString(R.string.done);
+		
+		if((String)spinner_Status.getSelectedItem() == notDone)
 		{
 			return new FilterKissesDoneStatus(false);
 		}
 
-		if(spinner_Status.getSelectedItemPosition() == 1)
+		if((String)spinner_Status.getSelectedItem() == done)
 		{
 			return new FilterKissesDoneStatus(true);
 		}
 		
 		return null;
+	}
+	private void setDoneStatusControls(FilterKissesDoneStatus filter)
+	{
+		checkBox_Status.setChecked(true);
+		
+		String notDone = getResources().getString(R.string.not_done);
+		String done = getResources().getString(R.string.done);
+		String[] spinnerItems = getResources().getStringArray(R.array.spinnerStatusItems);
+		
+		String searchedItem;
+		if(filter.getDoneStatus())
+		{
+			searchedItem = done;
+		}
+		else
+		{
+			searchedItem = notDone;
+		}
+			
+		int position = -1;
+		for(int i = 0; i < spinnerItems.length; i++)
+		{
+			if(spinnerItems[i] == searchedItem)
+			{
+				position = i;
+				return;
+			}
+		}
+		
+		if(position != -1)
+		{
+		    spinner_Status.setSelection(position);
+		}
+	}
+	private void setEnabledStatusControls(boolean enabled)
+	{
+		if(enabled)
+		{
+			spinner_Status.setEnabled(true);
+		}
+		else
+		{
+			spinner_Status.setEnabled(false);
+		}
+	}
+	private void setEnabledDateControls(boolean enabled)
+	{
+		if(enabled)
+		{
+			spinner_Date.setEnabled(true);
+		}
+		else
+		{
+			spinner_Date.setEnabled(false);
+		}
 	}
 }

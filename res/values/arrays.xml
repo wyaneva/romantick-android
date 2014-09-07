@@ -3,12 +3,13 @@
        
     <!-- Spinners -->
     <string-array name="spinnerStatusItems">
-        <item>Not done</item>
-        <item>Done</item>
+        <item>@string/not_done</item>
+        <item>@string/done</item>
     </string-array>
+
     <string-array name="spinnerDateItems">
-        <item>Before</item>
-        <item>After</item>
+        <item>@string/before</item>
+        <item>@string/after</item>
     </string-array> 
     
 </resources>

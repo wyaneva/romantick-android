@@ -38,14 +38,15 @@
             <Spinner
                 android:id="@+id/spinner_KissesStatus"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3" 
-                android:layout_gravity="left"
-                android:entries="@array/spinnerStatusItems"/>
+                android:layout_width="wrap_content"
+                android:layout_weight="0.4" 
+                android:layout_gravity="left" 
+                android:entries="@array/spinnerStatusItems" />
             
             <Space 
                 android:layout_height="fill_parent"
                 android:layout_width="1dp"
-                android:layout_weight="0.4" />
+                android:layout_weight="0.3" />
 
         </TableRow>
 
@@ -65,16 +66,17 @@
             <Spinner
                 android:id="@+id/spinner_KissesDate"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.3" 
-                android:layout_gravity="left"
-                android:entries="@array/spinnerDateItems"/>
+                android:layout_width="wrap_content"
+                android:layout_weight="0.4" 
+                android:layout_gravity="left" 
+                android:entries="@array/spinnerDateItems" />
 
             <TextView
                 android:id="@+id/textView_selectedKissesDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView" 
-                android:layout_weight="0.4" />
+                android:layout_weight="0.3" />
             
         </TableRow>
 

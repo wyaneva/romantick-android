@@ -8,7 +8,9 @@ public final class Constants
     public final static String EXTRA_TODO_TO_EDIT = "com.examples.romantick.EXTRA_ACTION_TO_EDIT";
     public final static String EXTRA_FILTERS = "com.examples.romantick.EXTRA_FILTERS";
     
-    //Filters - done status
+    //Spinners contents
     public final static String DONE 			= "Done";
     public final static String NOT_DONE 		= "Not Done";
+    public final static String BEFORE 			= "Before";
+    public final static String AFTER			= "After";
 }

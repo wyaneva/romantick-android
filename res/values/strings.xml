@@ -34,6 +34,12 @@
     <string name="button_clear">Clear</string>
     <string name="button_ok">OK</string>
 
+    <!-- Atring Array Items -->
+    <string name="done">Done</string>
+    <string name="not_done">Not Done</string>
+    <string name="before">Before</string>
+    <string name="after">After</string>
+    
     <!-- Misc -->
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_filter_kisses">ActivityFilterKisses</string>
