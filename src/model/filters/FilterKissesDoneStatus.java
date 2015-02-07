@@ -1,5 +1,6 @@
 package model.filters;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,19 +30,14 @@ public class FilterKissesDoneStatus extends FilterKissesBase
 	}
 
 	@Override
-	public List<Kiss> applyFilter(List<Kiss> kissList) 
+	public void applyFilter(List<Kiss> kissList) 
 	{
-		List<Kiss> result = new LinkedList<Kiss>(); 
-		
-		for(Kiss kiss : kissList)
-		{
-			if(kiss.isDone() == doneStatus)
-			{
-				result.add(kiss);
-			}
+		Iterator<Kiss> iter = kissList.iterator();
+		while (iter.hasNext()) {
+		    if (iter.next().isDone() != doneStatus) {
+		        iter.remove();
+		    }
 		}
-		
-		return result;
 	}
 	
 	public boolean getDoneStatus()

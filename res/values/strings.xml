@@ -30,7 +30,7 @@
     <string name="button_delete">Delete&#8230;</string>
     <string name="button_save">Save</string>
     <string name="button_cancel">Cancel</string>
-    <string name="button_select_date">Set Date</string>
+    <string name="button_select_date">Set</string>
     <string name="button_clear">Clear</string>
     <string name="button_ok">OK</string>
 

@@ -34,6 +34,10 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	Button button_Save = null;
 	Button button_Cancel = null;
 
+	//Initialise
+	//Initialise
+	//Initialise
+	//Initialise
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,7 +68,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 			    break;
 		}
 	}
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -72,7 +75,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		getMenuInflater().inflate(R.menu.display_message, menu);
 		return true;
 	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -84,8 +86,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	//Initialise
 	private void initialiseControls()
 	{
 		layout_EditControls = (LinearLayout) findViewById(R.id.layout_EditControls);
@@ -95,12 +95,10 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		button_Save = (Button) findViewById(R.id.button_Save);
 		button_Cancel = (Button) findViewById(R.id.button_Cancel);
 	}
-
 	private void setupAddStateScreen()
 	{
 		setButtonVisibility(false);
 	}
-
 	private void setupEditStateScreen(Action action)
 	{
 		setEnableControls(false, layout_EditControls);
@@ -125,13 +123,11 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 
 		finish();
 	}
-	
 	public void editAction(View view)
 	{
 		setEnableControls(true, layout_EditControls);
 		setButtonVisibility(false);
 	}
-
 	public void deleteAction(View view)
 	{
 		dataHandler.deleteAction(actionToEdit);
@@ -139,7 +135,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_DELETE);
 		finish();
 	}
-
 	public void cancelEdit(View view)
 	{
 		finish();
@@ -154,7 +149,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 
 		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD);
 	}
-
 	private void updateAction()
 	{
 		actionToEdit.setSummary(editText_Summary.getText().toString());
@@ -169,7 +163,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_FAIL);
 		}
 	}
-
 	private void setButtonVisibility(boolean areEditDeleteVisible)
 	{
 		button_Edit.setVisibility(boolToVisibility(areEditDeleteVisible));
@@ -177,12 +170,10 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		button_Save.setVisibility(boolToVisibility(!areEditDeleteVisible));
 		button_Cancel.setVisibility(boolToVisibility(!areEditDeleteVisible));
 	}
-	
 	private int boolToVisibility(boolean isVisible)
 	{
 		return isVisible ? View.VISIBLE : View.INVISIBLE;
 	}
-
 	private void setEnableControls(boolean enable, ViewGroup vg){
 	    for (int i = 0; i < vg.getChildCount(); i++){
 	       View child = vg.getChildAt(i);

@@ -2,35 +2,20 @@ package com.examples.romantick;
 
 import java.util.List;
 
-import utils.general.Constants;
-
-import model.Kiss;
 import model.filters.FilterKissesBase;
+import model.filters.FilterKissesDate;
 import model.filters.FilterKissesDoneStatus;
 import model.filters.FiltersManager;
-
-import com.example.romantick.R;
-import com.example.romantick.R.id;
-import com.example.romantick.R.layout;
-import com.example.romantick.R.menu;
-
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
-import android.os.Build;
+
+import com.example.romantick.R;
 
 public class ActivityFilterKisses extends Activity {
 
@@ -103,6 +88,10 @@ public class ActivityFilterKisses extends Activity {
                 {
                 	setDoneStatusControls((FilterKissesDoneStatus)filter);
                 }
+                if(filter instanceof FilterKissesDate)
+                {
+                	setDateControls((FilterKissesDate)filter);
+                }
 			}
 		}
 	}
@@ -121,7 +110,16 @@ public class ActivityFilterKisses extends Activity {
 			if(filter != null)
 			{
 				Log.d("TAG", "adding a filter");
-			    FiltersManager.addKissesFilter(getDoneStatusFilter());
+			    FiltersManager.addKissesFilter(filter);
+			}
+		}
+		if(checkBox_Date.isChecked())
+		{
+			FilterKissesDate filter = getDateFilter();
+			
+			if(filter != null)
+			{
+				FiltersManager.addKissesFilter(filter);
 			}
 		}
 		
@@ -144,6 +142,11 @@ public class ActivityFilterKisses extends Activity {
 			return new FilterKissesDoneStatus(true);
 		}
 		
+		return null;
+	}
+	private FilterKissesDate getDateFilter()
+	{
+		//TODO
 		return null;
 	}
 	private void setDoneStatusControls(FilterKissesDoneStatus filter)
@@ -178,6 +181,10 @@ public class ActivityFilterKisses extends Activity {
 		{
 		    spinner_Status.setSelection(position);
 		}
+	}
+	private void setDateControls(FilterKissesDate filter)
+	{
+		//TODO
 	}
 	private void setEnabledStatusControls(boolean enabled)
 	{

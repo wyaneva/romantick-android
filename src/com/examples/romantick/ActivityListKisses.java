@@ -1,6 +1,10 @@
 package com.examples.romantick;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import model.Action;
 import model.Kiss;
@@ -16,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +37,7 @@ public class ActivityListKisses extends Activity
 	
 	//controls
 	private TextView textView_filtersLabel = null;
-	private GridLayout gridLayout_filters = null;
+	private ListView listView_kissFilters = null;
 	private ListView listView_allKisses = null;
 	
     @Override
@@ -73,8 +78,8 @@ public class ActivityListKisses extends Activity
     private void initialiseControls()
     {
     	textView_filtersLabel = (TextView) findViewById(R.id.textView_filters);
+    	listView_kissFilters = (ListView) findViewById(R.id.listView_kissFilter);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
-    	gridLayout_filters = (GridLayout) findViewById(R.id.gridLayout_filters);
     }
     
     private void setListeners()
@@ -113,20 +118,31 @@ public class ActivityListKisses extends Activity
     {
     	Log.d("TAG", "populating kiss list");
     	
+    	ArrayList<String> filterList = new ArrayList<String>();
     	List<Kiss> kissList = dataHandler.getAllKisses();
     	
+    	//Display and apply filters
     	List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
     	if(filters != null && filters.size() > 0)
     	{
     		Log.d("TAG", "filters to apply");
     		for(FilterKissesBase filter : filters)
     		{
-    			kissList = filter.applyFilter(kissList);
+    			filter.applyFilter(kissList);
+    			filterList.add(filter.getDisplayString());
     		}
     	}
     	
+    	//Display kisses
     	kissListAdapter.setKissList(kissList);
     	listView_allKisses.setAdapter(kissListAdapter);
+    	
+    	//Display filters
+    	ArrayAdapter<String> filtersAdapter = new ArrayAdapter<String>(
+    			this, 
+    			android.R.layout.simple_list_item_1,
+    			filterList);
+    	listView_kissFilters.setAdapter(filtersAdapter);
     }
     public void setFilters()
     {

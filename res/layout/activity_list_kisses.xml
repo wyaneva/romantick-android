@@ -43,11 +43,19 @@
         android:layout_width="wrap_content" />
 
     <GridLayout
-        android:id="@+id/gridLayout_filters"
+        android:id="@+id/gridLayout_kissFilters"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:columnCount="1"
         android:numColumns="1" >
+
+        <ListView
+            android:id="@+id/listView_kissFilter"
+            android:layout_width="match_parent"
+            android:layout_column="0"
+            android:layout_gravity="left|top"
+            android:layout_row="0" >
+        </ListView>
     </GridLayout>
 
     <Space 
