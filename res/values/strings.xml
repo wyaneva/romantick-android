@@ -34,11 +34,14 @@
     <string name="button_clear">Clear</string>
     <string name="button_ok">OK</string>
 
-    <!-- Atring Array Items -->
+    <!-- String Array Items -->
     <string name="done">Done</string>
     <string name="not_done">Not Done</string>
     <string name="before">Before</string>
     <string name="after">After</string>
+    
+    <!-- Checkboxes -->
+    <string name="apply_filters">Apply filters</string>
     
     <!-- Misc -->
     <string name="hello_world">Hello world!</string>

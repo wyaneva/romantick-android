@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.GridLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,8 +37,7 @@ public class ActivityListKisses extends Activity
 	private AdapterKissList kissListAdapter = null;
 	
 	//controls
-	private TextView textView_filtersLabel = null;
-	private ListView listView_kissFilters = null;
+	private CheckBox checkBox_applyFilters = null;
 	private ListView listView_allKisses = null;
 	
     @Override
@@ -47,7 +47,6 @@ public class ActivityListKisses extends Activity
 
         //initialise
         initialiseControls();
-        setListeners();
         
         //create the data handler
         dataHandler = SQLiteOpenHelperKisses.getInstance(this);
@@ -57,14 +56,12 @@ public class ActivityListKisses extends Activity
 
         //no need to populate the list of actions, as this is done OnResume()
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
     @Override
     protected void onResume() 
     {
@@ -77,22 +74,8 @@ public class ActivityListKisses extends Activity
     //Initialise
     private void initialiseControls()
     {
-    	textView_filtersLabel = (TextView) findViewById(R.id.textView_filters);
-    	listView_kissFilters = (ListView) findViewById(R.id.listView_kissFilter);
+    	checkBox_applyFilters = (CheckBox) findViewById(R.id.checkBox_applyFilters);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
-    }
-    
-    private void setListeners()
-    {
-    	textView_filtersLabel.setOnClickListener(
-    			new OnClickListener() {
-					
-					@Override
-					public void onClick(View v) 
-					{
-						setFilters();
-					}
-				});
     }
 
     //Button Actions
@@ -105,54 +88,55 @@ public class ActivityListKisses extends Activity
     	intent.putExtra(Constants.EXTRA_TODO_TO_EDIT, (Action)null);
     	startActivity(intent);
     }
-    
-    public void clearFilters(View view)
+    public void setOrClearFilters(View view)
     {
-    	Log.d("TAG", "clearing filters");
-    	FiltersManager.clearKissesFilters();
-    	populateKissList();
-    }
-
-    //Helper functions
-    private void populateKissList()
-    {
-    	Log.d("TAG", "populating kiss list");
-    	
-    	ArrayList<String> filterList = new ArrayList<String>();
-    	List<Kiss> kissList = dataHandler.getAllKisses();
-    	
-    	//Display and apply filters
-    	List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
-    	if(filters != null && filters.size() > 0)
+    	if(checkBox_applyFilters.isChecked())
     	{
-    		Log.d("TAG", "filters to apply");
-    		for(FilterKissesBase filter : filters)
-    		{
-    			filter.applyFilter(kissList);
-    			filterList.add(filter.getDisplayString());
-    		}
+    		setFilters(view);
     	}
-    	
-    	//Display kisses
-    	kissListAdapter.setKissList(kissList);
-    	listView_allKisses.setAdapter(kissListAdapter);
-    	
-    	//Display filters
-    	ArrayAdapter<String> filtersAdapter = new ArrayAdapter<String>(
-    			this, 
-    			android.R.layout.simple_list_item_1,
-    			filterList);
-    	listView_kissFilters.setAdapter(filtersAdapter);
+    	else
+    	{
+    		clearFilters();
+    	}
     }
-    public void setFilters()
+    public void setFilters(View view)
     {
-    	Log.d("TAG", "adding filters");
-    	
     	Intent intent = new Intent(this, ActivityFilterKisses.class);
 
     	//add the data handler to the intent
     	startActivity(intent);
     } 
+    
+    //Helper functions
+    private void populateKissList()
+    {
+    	List<Kiss> kissList = dataHandler.getAllKisses();
+    	
+    	//Apply filters
+    	List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
+    	if(filters != null && filters.size() > 0)
+    	{
+    		for(FilterKissesBase filter : filters)
+    		{
+    			filter.applyFilter(kissList);
+    		}
+    		checkBox_applyFilters.setChecked(true);
+    	}
+    	else
+    	{
+    		checkBox_applyFilters.setChecked(false);
+    	}
+    	
+    	//Display kisses
+    	kissListAdapter.setKissList(kissList);
+    	listView_allKisses.setAdapter(kissListAdapter);
+    }
+    private void clearFilters()
+    {
+    	Log.d("TAG", "clearing filters");
+    	FiltersManager.clearKissesFilters();
+    	populateKissList();
+    }
 
     //Getters and setters
     public IDataHandlerKisses getDataHandler()

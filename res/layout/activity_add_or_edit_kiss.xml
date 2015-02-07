@@ -16,23 +16,31 @@
             android:layout_width="match_parent"
             android:layout_height="5dp" />
 
-       <TextView
-           android:id="@+id/textView_KissDate"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginRight="5dp"
-           android:text="@string/text_date"
-           android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <TextView
+        <LinearLayout
+            android:background="@layout/highlight_view"
             android:clickable="true"
-            android:id="@+id/textView_KissDateDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setDate"
-            android:text="@string/text_noDate"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:orientation="vertical" >
         
+           <TextView
+               android:id="@+id/textView_KissDate"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="5dp"
+               android:text="@string/text_date"
+               android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <TextView
+                android:id="@+id/textView_KissDateDisplay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/text_noDate"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        </LinearLayout>
+
         <Space
             android:layout_width="match_parent"
             android:layout_height="20dp" />

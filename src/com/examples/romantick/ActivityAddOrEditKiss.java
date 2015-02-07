@@ -84,11 +84,7 @@ public class ActivityAddOrEditKiss extends Activity  implements DatePickerDialog
 		}
 		else
 		{
-			//get today's date
-			Calendar cal = Calendar.getInstance();
-			Date today = cal.getTime();
-			
-			kissDate.setText(UsefulFunctions.dateToString(today));
+			kissDate.setText(UsefulFunctions.dateToString(UsefulFunctions.Today()));
     		setButtonVisibility(false);
 		}
 	}

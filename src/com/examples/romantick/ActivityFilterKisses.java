@@ -1,29 +1,39 @@
 package com.examples.romantick;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import utils.general.DatePickerFragment;
+import utils.general.UsefulFunctions;
 
 import model.filters.FilterKissesBase;
 import model.filters.FilterKissesDate;
 import model.filters.FilterKissesDoneStatus;
 import model.filters.FiltersManager;
 import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.app.DialogFragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.romantick.R;
 
-public class ActivityFilterKisses extends Activity {
-
+public class ActivityFilterKisses extends Activity implements DatePickerDialog.OnDateSetListener
+{
 	//Controls
 	CheckBox checkBox_Status = null;
 	Spinner spinner_Status = null;
 	CheckBox checkBox_Date = null;
 	Spinner spinner_Date = null;
+	TextView textView_Date = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
@@ -49,8 +59,8 @@ public class ActivityFilterKisses extends Activity {
 		
 		checkBox_Date = (CheckBox) findViewById(R.id.checkBox_KissesDate);
 		spinner_Date = (Spinner) findViewById(R.id.spinner_KissesDate);
+		textView_Date = (TextView) findViewById(R.id.textView_selectedKissesDate);
 	}
-	
 	private void setListeners()
 	{
 		checkBox_Status.setOnCheckedChangeListener(
@@ -73,11 +83,11 @@ public class ActivityFilterKisses extends Activity {
 					}
 				});
 	}
-	
 	private void setInitialState()
 	{
 		setEnabledStatusControls(false);
 		setEnabledDateControls(false);
+		textView_Date.setText(UsefulFunctions.dateToString(UsefulFunctions.Today()));
 		
 		List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
 		for(FilterKissesBase filter : filters)
@@ -99,24 +109,19 @@ public class ActivityFilterKisses extends Activity {
 	//Button actions
 	public void saveFilters(View view)
 	{
-		Log.d("TAG", "save kisses filters");
-
 		FiltersManager.clearKissesFilters();
 		
 		if(checkBox_Status.isChecked())
 		{
 			FilterKissesDoneStatus filter = getDoneStatusFilter();
-			
 			if(filter != null)
 			{
-				Log.d("TAG", "adding a filter");
 			    FiltersManager.addKissesFilter(filter);
 			}
 		}
 		if(checkBox_Date.isChecked())
 		{
 			FilterKissesDate filter = getDateFilter();
-			
 			if(filter != null)
 			{
 				FiltersManager.addKissesFilter(filter);
@@ -125,34 +130,39 @@ public class ActivityFilterKisses extends Activity {
 		
 		finish();
 	}
+	public void setDate(View view)
+	{
+		Date defaultDate = UsefulFunctions.stringToDate(textView_Date.getText().toString());
+		DialogFragment datePickerFragment = new DatePickerFragment(defaultDate);
+		datePickerFragment.show(getFragmentManager(), "datePicker");
+	}
 	
 	//Helper Functions
 	private FilterKissesDoneStatus getDoneStatusFilter()
 	{
-		String notDone = getResources().getString(R.string.not_done);
 		String done = getResources().getString(R.string.done);
+		boolean doneStatus = ((String)spinner_Status.getSelectedItem() == done);
 		
-		if((String)spinner_Status.getSelectedItem() == notDone)
-		{
-			return new FilterKissesDoneStatus(false);
-		}
-
-		if((String)spinner_Status.getSelectedItem() == done)
-		{
-			return new FilterKissesDoneStatus(true);
-		}
-		
-		return null;
+		return new FilterKissesDoneStatus(this, doneStatus);
 	}
 	private FilterKissesDate getDateFilter()
 	{
-		//TODO
+		String beforeAfter = (String)spinner_Date.getSelectedItem();
+		Date date = UsefulFunctions.stringToDate(textView_Date.getText().toString());
+		
+		if(date != null)
+		{
+			return new FilterKissesDate(this, beforeAfter, date);
+		}
+
 		return null;
 	}
 	private void setDoneStatusControls(FilterKissesDoneStatus filter)
 	{
+		//Checkbox
 		checkBox_Status.setChecked(true);
 		
+		//Spinner
 		String notDone = getResources().getString(R.string.not_done);
 		String done = getResources().getString(R.string.done);
 		String[] spinnerItems = getResources().getStringArray(R.array.spinnerStatusItems);
@@ -167,16 +177,7 @@ public class ActivityFilterKisses extends Activity {
 			searchedItem = notDone;
 		}
 			
-		int position = -1;
-		for(int i = 0; i < spinnerItems.length; i++)
-		{
-			if(spinnerItems[i] == searchedItem)
-			{
-				position = i;
-				return;
-			}
-		}
-		
+		int position = findItemPosition(searchedItem, spinnerItems);
 		if(position != -1)
 		{
 		    spinner_Status.setSelection(position);
@@ -184,28 +185,74 @@ public class ActivityFilterKisses extends Activity {
 	}
 	private void setDateControls(FilterKissesDate filter)
 	{
-		//TODO
+		//Checkbox
+		checkBox_Date.setChecked(true);
+		
+		//Spinner
+		String before = getResources().getString(R.string.before);
+		String after = getResources().getString(R.string.after);
+		String[] spinnerItems = getResources().getStringArray(R.array.spinnerDateItems);
+		
+		String searchedItem = "";
+		if(filter.getBeforeAfter() == before)
+		{
+			searchedItem = before;
+		}
+		else if(filter.getBeforeAfter() == after)
+		{
+			searchedItem = after;
+		}
+			
+		int position = findItemPosition(searchedItem, spinnerItems);
+		if(position != -1)
+		{
+		    spinner_Status.setSelection(position);
+		}
+		
+		//Date text view
+		Date selectedDate = filter.getDate();
+		if(selectedDate != null)
+		{
+		    textView_Date.setText(UsefulFunctions.dateToString(selectedDate));
+		}
 	}
 	private void setEnabledStatusControls(boolean enabled)
 	{
-		if(enabled)
-		{
-			spinner_Status.setEnabled(true);
-		}
-		else
-		{
-			spinner_Status.setEnabled(false);
-		}
+		spinner_Status.setEnabled(enabled);
 	}
 	private void setEnabledDateControls(boolean enabled)
 	{
-		if(enabled)
+		spinner_Date.setEnabled(enabled);
+		textView_Date.setEnabled(enabled);
+	}
+	private int findItemPosition(String searchedItem, String[] items)
+	{
+		int position = -1;
+		for(int i = 0; i < items.length; i++)
 		{
-			spinner_Date.setEnabled(true);
+			if(items[i] == searchedItem)
+			{
+				position = i;
+				break;
+			}
 		}
-		else
+		
+		return position;
+	}
+
+	//override
+	@Override
+	public void onDateSet(DatePicker view, int year, int month,	int day)
+	{
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.YEAR, year);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DAY_OF_MONTH, day);
+		
+		Date selectedDate = cal.getTime();
+		if(selectedDate != null)
 		{
-			spinner_Date.setEnabled(false);
+			textView_Date.setText(UsefulFunctions.dateToString(selectedDate));
 		}
 	}
 }

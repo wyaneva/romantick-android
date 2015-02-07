@@ -6,6 +6,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout_KissListTextViewsLayout"
+        android:background="@layout/highlight_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

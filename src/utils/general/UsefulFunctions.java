@@ -2,6 +2,7 @@ package utils.general;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
@@ -30,7 +31,6 @@ public class UsefulFunctions
 	{
 		return RomanTickDateFormat.format(date);
 	}
-	
 	public static Date stringToDate(String dateString)
 	{
 		Date result = null;
@@ -46,4 +46,13 @@ public class UsefulFunctions
 		
 		return result;
 	}
+	public static Date Today()
+	{
+		//get today's date
+		Calendar cal = Calendar.getInstance();
+		Date today = cal.getTime();
+		
+		return today;
+	}
+	
 }

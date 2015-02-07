@@ -39,5 +39,6 @@
         android:background="@android:color/holo_green_light"
 	    android:onClick="showTravelIdeasList"
         android:gravity="center"
+        android:enabled="false"
         android:text="@string/button_travel_ideas" />
 </LinearLayout>
