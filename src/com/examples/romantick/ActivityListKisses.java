@@ -1,10 +1,6 @@
 package com.examples.romantick;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import model.Action;
 import model.Kiss;
@@ -19,12 +15,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.GridLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.romantick.R;
 

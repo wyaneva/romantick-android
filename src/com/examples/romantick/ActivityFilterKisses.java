@@ -4,23 +4,21 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import utils.general.DatePickerFragment;
-import utils.general.UsefulFunctions;
-
 import model.filters.FilterKissesBase;
 import model.filters.FilterKissesDate;
 import model.filters.FilterKissesDoneStatus;
 import model.filters.FiltersManager;
+import utils.general.DatePickerFragment;
+import utils.general.UsefulFunctions;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.DatePicker;
 import android.widget.Spinner;
 import android.widget.TextView;
 

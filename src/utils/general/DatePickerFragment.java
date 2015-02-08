@@ -9,8 +9,6 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
 
-import com.examples.romantick.ActivityAddOrEditKiss;
-
 @SuppressLint("ValidFragment")
 public class DatePickerFragment extends DialogFragment
 {

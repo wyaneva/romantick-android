@@ -1,13 +1,11 @@
 package model.filters;
 
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-
-import android.content.Context;
 
 import model.Kiss;
 import utils.general.Constants;
+import android.content.Context;
 
 public class FilterKissesDoneStatus extends FilterKissesBase
 {

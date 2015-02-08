@@ -15,6 +15,7 @@ public class ToDoBase implements Serializable
 		isDone = false;
 	}
 	
+	//Getters and setters
 	public int getId() {
 		return id;
 	}

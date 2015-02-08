@@ -4,14 +4,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import model.Kiss;
 import utils.general.UsefulFunctions;
+import android.content.Context;
 
 import com.example.romantick.R;
-
-import android.content.Context;
-import android.util.Log;
-
-import model.Kiss;
 
 public class FilterKissesDate extends FilterKissesBase
 {
@@ -34,8 +31,6 @@ public class FilterKissesDate extends FilterKissesBase
 	@Override
 	public void applyFilter(List<Kiss> kissList) 
 	{
-		Log.d("TAG", "apply date filter");
-		
 		String before = context.getResources().getString(R.string.before);
 		String after = context.getResources().getString(R.string.after);
 		boolean isBefore = (beforeAfter == before);

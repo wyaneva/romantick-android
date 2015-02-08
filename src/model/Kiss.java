@@ -8,6 +8,7 @@ public class Kiss extends ToDoBase
 
 	private Date date;
 	
+	//Getters and setters
 	public Date getDate() {
 		return date;
 	}
@@ -20,8 +21,4 @@ public class Kiss extends ToDoBase
 	{
 		return getSummary();
 	}
-
-
-
-
 }
