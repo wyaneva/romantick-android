@@ -4,12 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" >
 
-    <TextView
-        android:id="@+id/textView_ActionListSummary"
+    <LinearLayout
+        android:id="@+id/linearLayout_ActionListTextViewsLayout"
+        android:background="@layout/highlight_view"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:layout_weight="1"
+        android:orientation="vertical" >
+    
+        <TextView
+            android:id="@+id/textView_ActionSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" 
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    </LinearLayout>
 
     <CheckBox
         android:id="@+id/checkBox_ActionIsDone"

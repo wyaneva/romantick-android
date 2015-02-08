@@ -216,9 +216,9 @@ public class ActivityAddOrEditKiss extends Activity  implements DatePickerDialog
 	//------------------------------------------------------------
 	private final static String TOAST_ADD_SUCCESS   	= "Kiss was added.";
 	private final static String TOAST_ADD_FAIL			= "Cannot add a kiss with an empty summary.";
-	private final static String TOAST_UPDATE_SUCCESS	= "Kiss has been updated.";
+	private final static String TOAST_UPDATE_SUCCESS	= "Kiss was updated.";
 	private final static String TOAST_UPDATE_FAIL		= "Cannot update a kiss with an empty summary.";
-	private final static String TOAST_DELETE_SUCCESS	= "Kiss has been deleted.";
+	private final static String TOAST_DELETE_SUCCESS	= "Kiss was deleted.";
 	
 	private final static int SUCCESS = 1;
 	private final static int FAIL	 = 2;

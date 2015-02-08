@@ -41,14 +41,12 @@ public class ActivityListActions extends Activity {
 
         //no need to populate the list of actions, as this is done OnResume()
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-
     @Override
     protected void onResume() 
     {
@@ -81,7 +79,7 @@ public class ActivityListActions extends Activity {
     	actionListAdapter.setActionList(dataHandler.getAllActions());
     	listView_allActions.setAdapter(actionListAdapter);
     }
-    
+
     //Getters and setters
     public IDataHandlerActions getDataHandler()
     {

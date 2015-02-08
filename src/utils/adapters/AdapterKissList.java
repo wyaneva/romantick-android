@@ -58,6 +58,7 @@ public class AdapterKissList extends BaseAdapter
 		
 		final Kiss kiss = kissesList.get(position);
 
+		//Listener for when we click
 		LinearLayout textViewsLayout = (LinearLayout) view.findViewById(R.id.linearLayout_KissListTextViewsLayout);
 		textViewsLayout.setOnClickListener(new View.OnClickListener() 
         {
@@ -71,13 +72,15 @@ public class AdapterKissList extends BaseAdapter
             }
         });
 		
+		//Date text
 		final TextView dateTextView = (TextView) view.findViewById(R.id.textView_KissListDate);
 		dateTextView.setText(UsefulFunctions.dateToString(kiss.getDate()));
 		
+		//Summary text
         final TextView summaryTextView = (TextView) view.findViewById(R.id.textView_KissListSummary);
         summaryTextView.setText(kiss.getSummary());
 
- 
+        //Done checkbox
         final CheckBox isDoneCheckBox = (CheckBox) view.findViewById(R.id.checkBox_KissIsDone);
         isDoneCheckBox.setChecked(kiss.isDone());
         isDoneCheckBox.setOnClickListener(new View.OnClickListener() 

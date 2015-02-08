@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.romantick.R;
@@ -55,10 +56,10 @@ public class AdapterActionList extends BaseAdapter
 		view = inflater.inflate(R.layout.list_item_action, parent, false);
 		
 		final Action action = actionsList.get(position);
-
-        final TextView summaryTextView = (TextView) view.findViewById(R.id.textView_ActionListSummary);
-        summaryTextView.setText(action.getSummary());
-        summaryTextView.setOnClickListener(new View.OnClickListener() 
+       
+		//Listener for when we click in the item
+        final LinearLayout summaryLayout = (LinearLayout) view.findViewById(R.id.linearLayout_ActionListTextViewsLayout);
+        summaryLayout.setOnClickListener(new View.OnClickListener() 
         {
             @Override
             public void onClick(View view) 
@@ -69,7 +70,12 @@ public class AdapterActionList extends BaseAdapter
             	actionListActivity.startActivity(intent);
             }
         });
+        
+        //Summary
+        final TextView summaryTextView = (TextView) view.findViewById(R.id.textView_ActionSummary);
+        summaryTextView.setText(action.getSummary());
  
+        //Done checkbox
         final CheckBox isDoneCheckBox = (CheckBox) view.findViewById(R.id.checkBox_ActionIsDone);
         isDoneCheckBox.setChecked(action.isDone());
         isDoneCheckBox.setOnClickListener(new View.OnClickListener() 

@@ -35,9 +35,6 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	Button button_Cancel = null;
 
 	//Initialise
-	//Initialise
-	//Initialise
-	//Initialise
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,21 +104,25 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	}
 
 	//buttons
-	public void saveAction(View view)
+	public void saveAction(View view) throws Exception
 	{
+		int successStatus;
 		switch(state)
 		{
 		    case ADD:
-		    	addAction();
+		        successStatus = addAction();
 		    	break;
 		    case EDIT:
-		    	updateAction();
+		    	successStatus = updateAction();
 		    	break;
 		    default:
-			    break;
+		    	throw new Exception("Something is wrong as the activity is neither in ADD nor in EDIT state.");
 		}
 
-		finish();
+		if(successStatus == SUCCESS)
+		{
+		    finish();
+		}
 	}
 	public void editAction(View view)
 	{
@@ -141,26 +142,41 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	}
 
 	//helper functions
-	private void addAction()
+	private int addAction()
 	{
+		String summary = editText_Summary.getText().toString();
+		if(summary.isEmpty())
+		{
+			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD_FAIL);
+			return FAIL;
+		}
+		
 		Action newAction = new Action();
-		newAction.setSummary(editText_Summary.getText().toString());
+		newAction.setSummary(summary);
 		dataHandler.addAction(newAction);
-
-		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD);
+		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD_SUCCESS);
+		return SUCCESS;
 	}
-	private void updateAction()
+	private int updateAction()
 	{
-		actionToEdit.setSummary(editText_Summary.getText().toString());
+		String summary = editText_Summary.getText().toString();
+		if(summary.isEmpty())
+		{
+			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_FAIL);
+			return FAIL;
+		}
+		
+		actionToEdit.setSummary(summary);
 		int updateResult = dataHandler.updateAction(actionToEdit);
-
 		if(updateResult > 0)
 		{
 			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_SUCCESS);
+			return SUCCESS;
 		}
 		else
 		{
-			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_FAIL);
+			UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_UPDATE_DB_FAIL);
+			return DB_FAIL;
 		}
 	}
 	private void setButtonVisibility(boolean areEditDeleteVisible)
@@ -195,8 +211,14 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	}
 
 	//-------------------------------------------------------------------
-	private static final String TOAST_MESSAGE_UPDATE_SUCCESS = "Entry has been updated.";
-    private static final String TOAST_MESSAGE_UPDATE_FAIL = "Entry has NOT been updated.";
-	private static final String TOAST_MESSAGE_ADD = "Entry has been added.";
-	private static final String TOAST_MESSAGE_DELETE = "Entry has been deleted.";
+	private static final String TOAST_MESSAGE_UPDATE_SUCCESS = "Entry was updated.";
+    private static final String TOAST_MESSAGE_UPDATE_FAIL = "Cannot update an entry with an empty summary.";
+    private static final String TOAST_MESSAGE_UPDATE_DB_FAIL = "Error updating entry.";
+	private static final String TOAST_MESSAGE_ADD_SUCCESS = "Entry was added.";
+	private static final String TOAST_MESSAGE_ADD_FAIL = "Cannot add an entry with an empty summary.";
+	private static final String TOAST_MESSAGE_DELETE = "Entry was deleted.";
+	
+	private static final int SUCCESS = 1;
+	private static final int FAIL = 2;
+	private static final int DB_FAIL = 3;
 }
