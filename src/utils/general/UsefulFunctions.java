@@ -55,4 +55,19 @@ public class UsefulFunctions
 		return today;
 	}
 	
+	//Spinners
+	public static int findItemPosition(String searchedItem, String[] items)
+	{
+		int position = -1;
+		for(int i = 0; i < items.length; i++)
+		{
+			if(items[i].equals(searchedItem))
+			{
+				position = i;
+				break;
+			}
+		}
+		
+		return position;
+	}	
 }

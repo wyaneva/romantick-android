@@ -1,8 +1,10 @@
 package com.examples.romantick;
 
 import model.Action;
+import utils.enums.EnumAddOrEditState;
+import utils.enums.EnumLocation;
+import utils.enums.EnumUtils;
 import utils.general.Constants;
-import utils.general.EnumAddOrEditState;
 import utils.general.UsefulFunctions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 import com.example.romantick.R;
 
@@ -29,6 +32,7 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	//Controls
 	LinearLayout layout_EditControls = null;
 	EditText editText_Summary = null;
+	Spinner spinner_Location = null;
 	Button button_Edit = null;
 	Button button_Delete = null;
 	Button button_Save = null;
@@ -87,6 +91,7 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	{
 		layout_EditControls = (LinearLayout) findViewById(R.id.layout_EditControls);
 		editText_Summary = (EditText) findViewById(R.id.editText_Summary);
+		spinner_Location = (Spinner) findViewById(R.id.spinner_ActionLocation);
 		button_Edit = (Button) findViewById(R.id.button_Edit);
 		button_Delete = (Button) findViewById(R.id.button_Delete);
 		button_Save = (Button) findViewById(R.id.button_Save);
@@ -96,10 +101,12 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	{
 		setButtonVisibility(false);
 	}
-	private void setupEditStateScreen(Action action)
+	private void setupEditStateScreen(Action action) 
 	{
 		setEnableControls(false, layout_EditControls);
 		editText_Summary.setText(action.getSummary());
+		setLocationInSpinner(action.getLocation(this));
+		
 		setButtonVisibility(true);
 	}
 
@@ -142,7 +149,7 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	}
 
 	//helper functions
-	private int addAction()
+	private int addAction() throws Exception
 	{
 		String summary = editText_Summary.getText().toString();
 		if(summary.isEmpty())
@@ -153,11 +160,12 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		
 		Action newAction = new Action();
 		newAction.setSummary(summary);
+		newAction.setLocation(getLocationFromSpinner());
 		dataHandler.addAction(newAction);
 		UsefulFunctions.showToast(getApplicationContext(), TOAST_MESSAGE_ADD_SUCCESS);
 		return SUCCESS;
 	}
-	private int updateAction()
+	private int updateAction() throws Exception
 	{
 		String summary = editText_Summary.getText().toString();
 		if(summary.isEmpty())
@@ -167,6 +175,8 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 		}
 		
 		actionToEdit.setSummary(summary);
+		actionToEdit.setLocation(getLocationFromSpinner());
+		
 		int updateResult = dataHandler.updateAction(actionToEdit);
 		if(updateResult > 0)
 		{
@@ -179,7 +189,30 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 			return DB_FAIL;
 		}
 	}
-	private void setButtonVisibility(boolean areEditDeleteVisible)
+	private EnumLocation getLocationFromSpinner() throws Exception
+	{
+		String selectedLocation = spinner_Location.getSelectedItem().toString();
+		
+		if(selectedLocation == EnumUtils.getLondon(this))
+		    return EnumLocation.LONDON;
+		
+		else if (selectedLocation == EnumUtils.getEdinburgh(this))
+		    return EnumLocation.EDINBURGH;
+		
+		throw new Exception("Something is wrong as I cannot find location value for selected spinner option " + selectedLocation);
+	}
+	private void setLocationInSpinner(String location) 
+	{
+		String[] spinnerItems = getResources().getStringArray(R.array.spinnerLocationItems);
+		int position = UsefulFunctions.findItemPosition(location, spinnerItems);
+		
+		if(position != -1)
+		{
+			spinner_Location.setSelection(position);
+		}
+	}
+
+ 	private void setButtonVisibility(boolean areEditDeleteVisible)
 	{
 		button_Edit.setVisibility(boolToVisibility(areEditDeleteVisible));
 		button_Delete.setVisibility(boolToVisibility(areEditDeleteVisible));
@@ -190,11 +223,13 @@ public class ActivityAddOrEditAction extends ActionBarActivity
 	{
 		return isVisible ? View.VISIBLE : View.INVISIBLE;
 	}
-	private void setEnableControls(boolean enable, ViewGroup vg){
+	private void setEnableControls(boolean enable, ViewGroup vg)
+	{
 	    for (int i = 0; i < vg.getChildCount(); i++){
 	       View child = vg.getChildAt(i);
 	       child.setEnabled(enable);
-	       if (child instanceof ViewGroup){ 
+	       if (child instanceof ViewGroup)
+	       { 
 	          setEnableControls(enable, (ViewGroup)child);
 	       }
 	    }

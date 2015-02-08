@@ -11,8 +11,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import datastoragehandler.IDataHandlerActions;
 
-public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHandlerActions {
-
+public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHandlerActions 
+{
+	private Context context;
 	private static SQLiteOpenHelperActions singleton = null;
 	
 	public static SQLiteOpenHelperActions getInstance(Context context)
@@ -27,6 +28,7 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 	private SQLiteOpenHelperActions(Context context)
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
 	}
 
 	public void addAction(Action action)
@@ -36,6 +38,7 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 		ContentValues values = new ContentValues();
 		values.put(KEY_SUMMARY, action.getSummary());
 		values.put(KEY_IS_DONE, action.isDone());
+		values.put(KEY_LOCATION, action.getLocation(context));
 
 		db.insert(TABLE_NAME, null, values);
 		db.close();
@@ -47,6 +50,7 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 		ContentValues values = new ContentValues();
 		values.put(KEY_SUMMARY, action.getSummary());
 		values.put(KEY_IS_DONE, action.isDone());
+		values.put(KEY_LOCATION, action.getLocation(context));
 		
 		int i = db.update(TABLE_NAME, values, KEY_ID + " = ?", new String[] {String.valueOf(action.getId())});
 		db.close();
@@ -74,10 +78,24 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 		{
 			do
 			{
-				action = new Action();
-				action.setId(Integer.parseInt(cursor.getString(KEY_ID_INDEX)));
-				action.setSummary(cursor.getString(KEY_SUMMARY_INDEX));
-				action.setDone(Integer.parseInt(cursor.getString(KEY_IS_DONE_INDEX)));
+				try 
+				{
+				    action = new Action();
+				    action.setId(Integer.parseInt(cursor.getString(KEY_ID_INDEX)));
+				    action.setSummary(cursor.getString(KEY_SUMMARY_INDEX));
+				    action.setDone(Integer.parseInt(cursor.getString(KEY_IS_DONE_INDEX)));
+					action.setLocation(context, cursor.getString(KEY_LOCATION_INDEX));
+				} 
+				catch (NumberFormatException e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+				catch (Exception e) 
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				result.add(action);
 			}
@@ -93,7 +111,6 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 	{
 		db.execSQL(TABLE_CREATE);
 	}
-
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) 
 	{
@@ -109,6 +126,8 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 	private static final int	KEY_SUMMARY_INDEX 	= 1;
 	private static final String	KEY_IS_DONE			= "isdone";
 	private static final int	KEY_IS_DONE_INDEX	= 2;
+	private static final String KEY_LOCATION		= "location";
+	private static final int    KEY_LOCATION_INDEX	= 3;
 	
 	private static final long 	serialVersionUID = 1L;
 	private static final int 	DATABASE_VERSION 	= 2;
@@ -116,9 +135,8 @@ public class SQLiteOpenHelperActions extends SQLiteOpenHelper implements IDataHa
 	private static final String TABLE_NAME 			= "actions";
 	private static final String TABLE_CREATE 		
 					= "CREATE TABLE " + TABLE_NAME + " (" +
-						KEY_ID 		+ " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-						KEY_SUMMARY + " TEXT, " +
-						KEY_IS_DONE + " INTEGER )";
-
-
+						KEY_ID 		 + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+						KEY_SUMMARY  + " TEXT, " +
+						KEY_IS_DONE  + " INTEGER, " +
+						KEY_LOCATION + " TEXT)";
 }

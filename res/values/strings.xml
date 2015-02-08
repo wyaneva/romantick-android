@@ -19,6 +19,7 @@
     <string name="text_noDate">No Date</string>
     <string name="text_filters">Filters</string>
     <string name="text_status">Status</string>
+    <string name="text_location">Location</string>
 
     <!-- Buttons -->
     <string name="button_todo">To Do List</string>
@@ -39,6 +40,9 @@
     <string name="not_done">Not Done</string>
     <string name="before">Before</string>
     <string name="after">After</string>
+    <!-- Locations -->
+    <string name="edinburgh">Edinburgh</string>
+    <string name="london">London</string>
     
     <!-- Checkboxes -->
     <string name="apply_filters">Apply filters</string>

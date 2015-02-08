@@ -3,8 +3,8 @@ package utils.adapters;
 import java.util.List;
 
 import model.Kiss;
+import utils.enums.EnumAddOrEditState;
 import utils.general.Constants;
-import utils.general.EnumAddOrEditState;
 import utils.general.UsefulFunctions;
 import android.content.Context;
 import android.content.Intent;

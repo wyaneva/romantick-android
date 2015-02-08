@@ -175,7 +175,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 			searchedItem = notDone;
 		}
 			
-		int position = findItemPosition(searchedItem, spinnerItems);
+		int position = UsefulFunctions.findItemPosition(searchedItem, spinnerItems);
 		if(position != -1)
 		{
 		    spinner_Status.setSelection(position);
@@ -201,7 +201,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 			searchedItem = after;
 		}
 			
-		int position = findItemPosition(searchedItem, spinnerItems);
+		int position = UsefulFunctions.findItemPosition(searchedItem, spinnerItems);
 		if(position != -1)
 		{
 		    spinner_Status.setSelection(position);
@@ -222,20 +222,6 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	{
 		spinner_Date.setEnabled(enabled);
 		textView_Date.setEnabled(enabled);
-	}
-	private int findItemPosition(String searchedItem, String[] items)
-	{
-		int position = -1;
-		for(int i = 0; i < items.length; i++)
-		{
-			if(items[i] == searchedItem)
-			{
-				position = i;
-				break;
-			}
-		}
-		
-		return position;
 	}
 
 	//override

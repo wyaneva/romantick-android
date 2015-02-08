@@ -4,9 +4,9 @@ import java.util.Calendar;
 import java.util.Date;
 
 import model.Kiss;
+import utils.enums.EnumAddOrEditState;
 import utils.general.Constants;
 import utils.general.DatePickerFragment;
-import utils.general.EnumAddOrEditState;
 import utils.general.UsefulFunctions;
 import android.app.Activity;
 import android.app.DatePickerDialog;

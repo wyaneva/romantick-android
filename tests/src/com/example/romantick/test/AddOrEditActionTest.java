@@ -1,6 +1,6 @@
 package com.example.romantick.test;
 
-import utils.general.EnumAddOrEditState;
+import utils.enums.EnumAddOrEditState;
 
 import com.examples.romantick.ActivityAddOrEditAction;
 

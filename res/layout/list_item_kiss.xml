@@ -12,31 +12,22 @@
         android:layout_weight="1"
         android:orientation="vertical" >
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-        
         <TextView
             android:id="@+id/textView_KissListDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
             android:text="" />
         
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
         <TextView
             android:id="@+id/textView_KissListSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="5dp" />
-
     </LinearLayout>
 
     <CheckBox

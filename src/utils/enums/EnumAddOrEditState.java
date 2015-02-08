@@ -1,4 +1,4 @@
-package utils.general;
+package utils.enums;
 
 public enum EnumAddOrEditState 
 {

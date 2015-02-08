@@ -13,9 +13,19 @@
         android:orientation="vertical" >
     
         <TextView
+            android:id="@+id/textView_ActionLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+        
+        <TextView
             android:id="@+id/textView_ActionSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
             android:text="" 
             android:textAppearance="?android:attr/textAppearanceMedium" />
     
@@ -25,6 +35,7 @@
         android:id="@+id/checkBox_ActionIsDone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="" />
 
 </LinearLayout>

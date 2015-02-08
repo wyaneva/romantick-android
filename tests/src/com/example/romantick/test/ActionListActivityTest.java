@@ -1,7 +1,7 @@
 package com.example.romantick.test;
 
 import model.Action;
-import utils.general.EnumAddOrEditState;
+import utils.enums.EnumAddOrEditState;
 import android.app.Instrumentation;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;

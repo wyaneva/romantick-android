@@ -2,8 +2,8 @@ package com.examples.romantick;
 
 import model.Action;
 import utils.adapters.AdapterActionList;
+import utils.enums.EnumAddOrEditState;
 import utils.general.Constants;
-import utils.general.EnumAddOrEditState;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
