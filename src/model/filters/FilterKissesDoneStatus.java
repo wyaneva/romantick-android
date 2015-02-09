@@ -11,11 +11,17 @@ public class FilterKissesDoneStatus extends FilterKissesBase
 {
 	private boolean doneStatus;
 	
-	public FilterKissesDoneStatus(Context _context, boolean _status)
+//	public FilterKissesDoneStatus(Context _context, boolean _status)
+//	{
+//		super(_context);
+//
+//		doneStatus = _status;
+//	}
+	
+	public FilterKissesDoneStatus(Context context)
 	{
-		super(_context);
-
-		doneStatus = _status;
+		super(context);
+		doneStatus = false;
 	}
 	
 	@Override
@@ -47,5 +53,9 @@ public class FilterKissesDoneStatus extends FilterKissesBase
 	public boolean getDoneStatus()
 	{
 		return doneStatus;
+	}
+	public void setDoneStatus(boolean doneStatus)
+	{
+		this.doneStatus = doneStatus;
 	}
 }

@@ -15,7 +15,6 @@ import datastoragehandler.IDataHandlerKisses;
 
 public class SQLiteOpenHelperKisses extends SQLiteOpenHelper implements IDataHandlerKisses 
 {
-
 	private static SQLiteOpenHelperKisses singleton = null;
 	
 	public static SQLiteOpenHelperKisses getInstance(Context context)

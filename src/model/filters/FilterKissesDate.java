@@ -15,13 +15,20 @@ public class FilterKissesDate extends FilterKissesBase
 	private String beforeAfter;
 	private Date date;
 	
-	public FilterKissesDate(Context _context, String _beforeAfter, Date _date)
+	public FilterKissesDate(Context context)
 	{
-		super(_context);
-
-		beforeAfter = _beforeAfter;
-		date = _date;
+		super(context);
+		beforeAfter = context.getResources().getString(R.string.before);
+		date = UsefulFunctions.Today();
 	}
+	
+//	public FilterKissesDate(Context _context, String _beforeAfter, Date _date)
+//	{
+//		super(_context);
+//
+//		beforeAfter = _beforeAfter;
+//		date = _date;
+//	}
 	
 	@Override
 	public String getDisplayString() 
@@ -58,5 +65,15 @@ public class FilterKissesDate extends FilterKissesBase
 	public Date getDate()
 	{
 		return date;
+	}
+
+	public void setBeforeAfter(String beforeAfter) 
+	{
+		this.beforeAfter = beforeAfter;
+	}
+
+	public void setDate(Date date) 
+	{
+		this.date = date;
 	}
 }

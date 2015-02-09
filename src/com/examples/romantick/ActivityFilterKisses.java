@@ -26,6 +26,8 @@ import com.example.romantick.R;
 
 public class ActivityFilterKisses extends Activity implements DatePickerDialog.OnDateSetListener
 {
+	private FiltersManager filtersManager = null;
+	
 	//Controls
 	CheckBox checkBox_Status = null;
 	Spinner spinner_Status = null;
@@ -36,6 +38,8 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
+		filtersManager = FiltersManager.getInstance(this);
+		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filter_kisses);
 		
@@ -87,10 +91,10 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		setEnabledDateControls(false);
 		textView_Date.setText(UsefulFunctions.dateToString(UsefulFunctions.Today()));
 		
-		List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
+		List<FilterKissesBase> filters = filtersManager.getKissesFilters();
 		for(FilterKissesBase filter : filters)
 		{
-			if(filter != null)
+			if(filter.isApplied())
 			{
                 if(filter instanceof FilterKissesDoneStatus)
                 {
@@ -107,23 +111,15 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	//Button actions
 	public void saveFilters(View view)
 	{
-		FiltersManager.clearKissesFilters();
-		
+		filtersManager.clearKissesFilters();
+
 		if(checkBox_Status.isChecked())
 		{
-			FilterKissesDoneStatus filter = getDoneStatusFilter();
-			if(filter != null)
-			{
-			    FiltersManager.addKissesFilter(filter);
-			}
+			filtersManager.addDoneStatusFilter(getDoneStatus());
 		}
 		if(checkBox_Date.isChecked())
 		{
-			FilterKissesDate filter = getDateFilter();
-			if(filter != null)
-			{
-				FiltersManager.addKissesFilter(filter);
-			}
+			filtersManager.addDateFilter(getBeforeAfter(), getDate());
 		}
 		
 		finish();
@@ -136,25 +132,22 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	}
 	
 	//Helper Functions
-	private FilterKissesDoneStatus getDoneStatusFilter()
+	private boolean getDoneStatus()
 	{
 		String done = getResources().getString(R.string.done);
 		boolean doneStatus = ((String)spinner_Status.getSelectedItem() == done);
 		
-		return new FilterKissesDoneStatus(this, doneStatus);
+		return doneStatus;
 	}
-	private FilterKissesDate getDateFilter()
+	private String getBeforeAfter()
 	{
-		String beforeAfter = (String)spinner_Date.getSelectedItem();
-		Date date = UsefulFunctions.stringToDate(textView_Date.getText().toString());
-		
-		if(date != null)
-		{
-			return new FilterKissesDate(this, beforeAfter, date);
-		}
-
-		return null;
+		return (String)spinner_Date.getSelectedItem();
 	}
+	private Date getDate()
+	{
+		return UsefulFunctions.stringToDate(textView_Date.getText().toString());
+	}
+	
 	private void setDoneStatusControls(FilterKissesDoneStatus filter)
 	{
 		//Checkbox

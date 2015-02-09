@@ -12,13 +12,10 @@ import utils.general.Constants;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.Switch;
-import android.widget.ToggleButton;
 
 import com.example.romantick.R;
 
@@ -29,9 +26,9 @@ public class ActivityListKisses extends Activity
 {
 	private IDataHandlerKisses dataHandler = null;
 	private AdapterKissList kissListAdapter = null;
+	private FiltersManager filtersManager = null;
 	
 	//controls
-	//private CheckBox checkBox_applyFilters = null;
 	private Switch switch_Filters = null;
 	private ListView listView_allKisses = null;
 	
@@ -45,6 +42,7 @@ public class ActivityListKisses extends Activity
         
         //create the data handler
         dataHandler = SQLiteOpenHelperKisses.getInstance(this);
+        filtersManager = FiltersManager.getInstance(this);
         
         //create the Action List Adapter
         kissListAdapter = new AdapterKissList(this);
@@ -69,7 +67,6 @@ public class ActivityListKisses extends Activity
     //Initialise
     private void initialiseControls()
     {
-    	//checkBox_applyFilters = (CheckBox) findViewById(R.id.checkBox_applyFilters);
     	switch_Filters = (Switch) findViewById(R.id.switch_Filters);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
     }
@@ -86,12 +83,7 @@ public class ActivityListKisses extends Activity
     }
     public void setOrClearFilters(View view)
     {
-    	//if(checkBox_applyFilters.isChecked())
-    	if(switch_Filters.isChecked())
-    	{
-    		setFilters(view);
-    	}
-    	else
+    	if(!switch_Filters.isChecked())
     	{
     		clearFilters();
     	}
@@ -110,20 +102,13 @@ public class ActivityListKisses extends Activity
     	List<Kiss> kissList = dataHandler.getAllKisses();
     	
     	//Apply filters
-    	List<FilterKissesBase> filters = FiltersManager.getKissesFilters();
-    	if(filters != null && filters.size() > 0)
+    	List<FilterKissesBase> filters = filtersManager.getKissesFilters();
+    	for(FilterKissesBase filter : filters)
     	{
-    		for(FilterKissesBase filter : filters)
+    		if(filter.isApplied())
     		{
-    			filter.applyFilter(kissList);
+    		    filter.applyFilter(kissList);
     		}
-    		//checkBox_applyFilters.setChecked(true);
-    	    switch_Filters.setChecked(true);
-    	}
-    	else
-    	{
-    		//checkBox_applyFilters.setChecked(false);
-    		switch_Filters.setChecked(false);
     	}
     	
     	//Display kisses
@@ -132,8 +117,7 @@ public class ActivityListKisses extends Activity
     }
     private void clearFilters()
     {
-    	Log.d("TAG", "clearing filters");
-    	FiltersManager.clearKissesFilters();
+    	filtersManager.clearKissesFilters();
     	populateKissList();
     }
 
