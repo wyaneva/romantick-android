@@ -44,9 +44,6 @@
     <string name="edinburgh">Edinburgh</string>
     <string name="london">London</string>
     
-    <!-- Checkboxes -->
-    <string name="apply_filters">Apply filters</string>
-    
     <!-- Misc -->
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_activity_filter_kisses">ActivityFilterKisses</string>

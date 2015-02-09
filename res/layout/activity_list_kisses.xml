@@ -13,12 +13,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
         
-        <CheckBox
+        <!-- <CheckBox
             android:id="@+id/checkBox_applyFilters"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:onClick="setOrClearFilters" />  
+            android:onClick="setOrClearFilters" -->  
             
         <TextView 
             android:layout_width="0dp"
@@ -28,8 +28,16 @@
             android:background="@layout/highlight_view"
             android:onClick="setFilters"
             android:clickable="true"
-            android:text="@string/apply_filters"
+            android:text="@string/text_filters"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <Switch 
+            android:id="@+id/switch_Filters"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="setOrClearFilters"
+            />
+        
     </LinearLayout>
 
     <ListView

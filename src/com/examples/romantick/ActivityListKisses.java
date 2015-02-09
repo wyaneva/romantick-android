@@ -17,6 +17,8 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.ToggleButton;
 
 import com.example.romantick.R;
 
@@ -29,7 +31,8 @@ public class ActivityListKisses extends Activity
 	private AdapterKissList kissListAdapter = null;
 	
 	//controls
-	private CheckBox checkBox_applyFilters = null;
+	//private CheckBox checkBox_applyFilters = null;
+	private Switch switch_Filters = null;
 	private ListView listView_allKisses = null;
 	
     @Override
@@ -66,7 +69,8 @@ public class ActivityListKisses extends Activity
     //Initialise
     private void initialiseControls()
     {
-    	checkBox_applyFilters = (CheckBox) findViewById(R.id.checkBox_applyFilters);
+    	//checkBox_applyFilters = (CheckBox) findViewById(R.id.checkBox_applyFilters);
+    	switch_Filters = (Switch) findViewById(R.id.switch_Filters);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
     }
 
@@ -82,7 +86,8 @@ public class ActivityListKisses extends Activity
     }
     public void setOrClearFilters(View view)
     {
-    	if(checkBox_applyFilters.isChecked())
+    	//if(checkBox_applyFilters.isChecked())
+    	if(switch_Filters.isChecked())
     	{
     		setFilters(view);
     	}
@@ -112,11 +117,13 @@ public class ActivityListKisses extends Activity
     		{
     			filter.applyFilter(kissList);
     		}
-    		checkBox_applyFilters.setChecked(true);
+    		//checkBox_applyFilters.setChecked(true);
+    	    switch_Filters.setChecked(true);
     	}
     	else
     	{
-    		checkBox_applyFilters.setChecked(false);
+    		//checkBox_applyFilters.setChecked(false);
+    		switch_Filters.setChecked(false);
     	}
     	
     	//Display kisses
