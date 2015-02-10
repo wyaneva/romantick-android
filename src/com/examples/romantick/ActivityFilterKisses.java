@@ -94,17 +94,14 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		List<FilterKissesBase> filters = filtersManager.getKissesFilters();
 		for(FilterKissesBase filter : filters)
 		{
-			if(filter.isApplied())
-			{
-                if(filter instanceof FilterKissesDoneStatus)
-                {
-                	setDoneStatusControls((FilterKissesDoneStatus)filter);
-                }
-                if(filter instanceof FilterKissesDate)
-                {
-                	setDateControls((FilterKissesDate)filter);
-                }
-			}
+            if(filter instanceof FilterKissesDoneStatus)
+            {
+                setDoneStatusControls((FilterKissesDoneStatus)filter);
+            }
+            if(filter instanceof FilterKissesDate)
+            {
+                setDateControls((FilterKissesDate)filter);
+            }
 		}
 	}
 	
@@ -115,11 +112,11 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 
 		if(checkBox_Status.isChecked())
 		{
-			filtersManager.addDoneStatusFilter(getDoneStatus());
+			filtersManager.addFilterKissesDoneStatus(getDoneStatus());
 		}
 		if(checkBox_Date.isChecked())
 		{
-			filtersManager.addDateFilter(getBeforeAfter(), getDate());
+			filtersManager.addFilterKissesDate(getBeforeAfter(), getDate());
 		}
 		
 		finish();
@@ -151,7 +148,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	private void setDoneStatusControls(FilterKissesDoneStatus filter)
 	{
 		//Checkbox
-		checkBox_Status.setChecked(true);
+		checkBox_Status.setChecked(filter.isApplied());
 		
 		//Spinner
 		String notDone = getResources().getString(R.string.not_done);
@@ -177,7 +174,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	private void setDateControls(FilterKissesDate filter)
 	{
 		//Checkbox
-		checkBox_Date.setChecked(true);
+		checkBox_Date.setChecked(filter.isApplied());
 		
 		//Spinner
 		String before = getResources().getString(R.string.before);
@@ -197,7 +194,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		int position = UsefulFunctions.findItemPosition(searchedItem, spinnerItems);
 		if(position != -1)
 		{
-		    spinner_Status.setSelection(position);
+		    spinner_Date.setSelection(position);
 		}
 		
 		//Date text view

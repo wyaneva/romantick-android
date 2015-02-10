@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.romantick.R;
 
@@ -29,8 +30,11 @@ public class ActivityListKisses extends Activity
 	private FiltersManager filtersManager = null;
 	
 	//controls
-	private Switch switch_Filters = null;
 	private ListView listView_allKisses = null;
+	private Switch switch_Filters = null;
+	private TextView textView_doneStatusFilter = null;
+	private TextView textView_dateFilter = null;
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +64,9 @@ public class ActivityListKisses extends Activity
     {
     	super.onResume();
     	
+    	//set filters view
+    	setFiltersView();
+    	
     	//populate the list of actions
     	populateKissList();
     }
@@ -67,8 +74,10 @@ public class ActivityListKisses extends Activity
     //Initialise
     private void initialiseControls()
     {
-    	switch_Filters = (Switch) findViewById(R.id.switch_Filters);
     	listView_allKisses = (ListView) findViewById(R.id.listView_allKisses);
+    	textView_doneStatusFilter = (TextView) findViewById(R.id.textView_DoneStatusFilter);
+    	textView_dateFilter = (TextView) findViewById(R.id.textView_DateFilter);
+    	switch_Filters = (Switch) findViewById(R.id.switch_Filters);
     }
 
     //Button Actions
@@ -95,6 +104,34 @@ public class ActivityListKisses extends Activity
     } 
     
     //Helper functions
+    private void setFiltersView()
+    {
+    	//Done status filter
+    	FilterKissesBase doneStatusFilter = filtersManager.getFilterKissesDoneStatus();
+    	if(doneStatusFilter.isApplied())
+    	{
+    		textView_doneStatusFilter.setText(doneStatusFilter.getDisplayString());
+    		textView_doneStatusFilter.setVisibility(View.VISIBLE);
+    	}
+    	else
+    	{
+    		textView_doneStatusFilter.setText("");
+    		textView_doneStatusFilter.setVisibility(View.GONE);
+    	}
+    	
+    	//Date filter
+    	FilterKissesBase dateFilter = filtersManager.getFilterKissesDate();
+    	if(dateFilter.isApplied())
+    	{
+    		textView_dateFilter.setText(dateFilter.getDisplayString());
+    		textView_dateFilter.setVisibility(View.VISIBLE);
+    	}
+    	else
+    	{
+    		textView_dateFilter.setText("");
+    		textView_dateFilter.setVisibility(View.GONE);
+    	}
+    }
     private void populateKissList()
     {
     	List<Kiss> kissList = dataHandler.getAllKisses();

@@ -42,25 +42,33 @@ public class FiltersManager
 		}
 	}
 
-	public void addDoneStatusFilter(boolean isDone)
+	public void addFilterKissesDoneStatus(boolean isDone)
 	{
 		filterKissesDoneStatus.setDoneStatus(isDone);
 		filterKissesDoneStatus.setApplied(true);
 	}
-	public void removeDoneStatusFilter()
+	public void removeFilterKissesDoneStatus()
 	{
 		filterKissesDoneStatus.setApplied(false);
 	}
+	public FilterKissesBase getFilterKissesDoneStatus()
+	{
+		return filterKissesDoneStatus;
+	}
 	
-	public void addDateFilter(String beforeAfter, Date date)
+	public void addFilterKissesDate(String beforeAfter, Date date)
 	{
 		filterKissesDate.setBeforeAfter(beforeAfter);
 		filterKissesDate.setDate(date);
 		filterKissesDate.setApplied(true);
 	}
-	public void removeDateFilter()
+	public void removeFilterKissesDate()
 	{
 		filterKissesDate.setApplied(false);
+	}
+	public FilterKissesBase getFilterKissesDate()
+	{
+		return filterKissesDate;
 	}
 	
 	public List<FilterKissesBase> getKissesFilters()
