@@ -83,10 +83,8 @@ public class ActivityListKisses extends Activity
     }
     public void setOrClearFilters(View view)
     {
-    	if(!switch_Filters.isChecked())
-    	{
-    		clearFilters();
-    	}
+    	filtersManager.setFiltersOn(switch_Filters.isChecked());
+    	populateKissList();
     }
     public void setFilters(View view)
     {
@@ -102,23 +100,21 @@ public class ActivityListKisses extends Activity
     	List<Kiss> kissList = dataHandler.getAllKisses();
     	
     	//Apply filters
-    	List<FilterKissesBase> filters = filtersManager.getKissesFilters();
-    	for(FilterKissesBase filter : filters)
+    	if(filtersManager.filtersOn())
     	{
-    		if(filter.isApplied())
-    		{
-    		    filter.applyFilter(kissList);
-    		}
-    	}
+    	    List<FilterKissesBase> filters = filtersManager.getKissesFilters();
+    	    for(FilterKissesBase filter : filters)
+    	    {
+    		    if(filter.isApplied())
+    		    {
+    		        filter.applyFilter(kissList);
+    		    }
+    	    }
+    	}	
     	
     	//Display kisses
     	kissListAdapter.setKissList(kissList);
     	listView_allKisses.setAdapter(kissListAdapter);
-    }
-    private void clearFilters()
-    {
-    	filtersManager.clearKissesFilters();
-    	populateKissList();
     }
 
     //Getters and setters

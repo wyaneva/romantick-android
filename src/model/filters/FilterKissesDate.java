@@ -22,14 +22,6 @@ public class FilterKissesDate extends FilterKissesBase
 		date = UsefulFunctions.Today();
 	}
 	
-//	public FilterKissesDate(Context _context, String _beforeAfter, Date _date)
-//	{
-//		super(_context);
-//
-//		beforeAfter = _beforeAfter;
-//		date = _date;
-//	}
-	
 	@Override
 	public String getDisplayString() 
 	{

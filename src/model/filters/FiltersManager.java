@@ -28,6 +28,8 @@ public class FiltersManager
 		kissesFilters.add(filterKissesDate);
 	}
 	
+	private boolean filtersOn = false;
+	
 	private List<FilterKissesBase> kissesFilters = null;
 	private FilterKissesDoneStatus filterKissesDoneStatus = null;
 	private FilterKissesDate filterKissesDate = null;
@@ -64,5 +66,15 @@ public class FiltersManager
 	public List<FilterKissesBase> getKissesFilters()
 	{
 		return kissesFilters;
+	}
+	
+	//Getters and setters
+	public boolean filtersOn()
+	{
+		return filtersOn;
+	}
+	public void setFiltersOn(boolean filtersOn)
+	{
+		this.filtersOn = filtersOn;
 	}
 }
