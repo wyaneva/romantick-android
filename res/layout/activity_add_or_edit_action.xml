@@ -33,35 +33,32 @@
             android:ems="10"
             android:textColorLink="@android:color/holo_green_light" />
        
-        <TextView
-            android:id="@+id/textView_ActionLocation"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:gravity="center_vertical|left"
-            android:paddingTop="20dp"
-            android:text="@string/text_location" 
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <Spinner
-            android:id="@+id/spinner_ActionLocation"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:paddingTop="5dp"
-            android:entries="@array/spinnerLocationItems" />
-        
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchColumns="1"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp" >
+            android:paddingTop="20dp" >
 
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
 
+                <TextView
+                    android:id="@+id/textView_ActionLocation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/text_location" 
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
 
+                <Spinner
+                    android:id="@+id/spinner_ActionLocation"
+                    android:layout_height="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:entries="@array/spinnerLocationItems" />
             
             </TableRow>
 
