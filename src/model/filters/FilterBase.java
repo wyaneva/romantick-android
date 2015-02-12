@@ -17,7 +17,7 @@ public abstract class FilterBase<T extends ToDoBase>
 	}
 	
 	public abstract String getDisplayString();
-	public abstract void applyFilter(List<T> kissList);
+	public abstract void applyFilter(List<T> list);
 
 	//Getters and Setters
 	public boolean isApplied() 

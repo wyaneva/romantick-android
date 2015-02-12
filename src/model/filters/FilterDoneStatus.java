@@ -31,9 +31,9 @@ public class FilterDoneStatus<T extends ToDoBase> extends FilterBase<T>
 	}
 
 	@Override
-	public void applyFilter(List<T> kissList) 
+	public void applyFilter(List<T> list) 
 	{
-		Iterator<T> iter = kissList.iterator();
+		Iterator<T> iter = list.iterator();
 		while (iter.hasNext()) 
 		{
 		    if (iter.next().isDone() != doneStatus) 
