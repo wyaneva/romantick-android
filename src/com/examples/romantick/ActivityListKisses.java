@@ -4,7 +4,7 @@ import java.util.List;
 
 import model.Action;
 import model.Kiss;
-import model.filters.FilterKissesBase;
+import model.filters.FilterBase;
 import model.filters.FiltersManager;
 import utils.adapters.AdapterKissList;
 import utils.enums.EnumAddOrEditState;
@@ -107,7 +107,7 @@ public class ActivityListKisses extends Activity
     private void setFiltersView()
     {
     	//Done status filter
-    	FilterKissesBase doneStatusFilter = filtersManager.getFilterKissesDoneStatus();
+    	FilterBase<Kiss> doneStatusFilter = filtersManager.getFilterKissesDoneStatus();
     	if(doneStatusFilter.isApplied())
     	{
     		textView_doneStatusFilter.setText(doneStatusFilter.getDisplayString());
@@ -120,7 +120,7 @@ public class ActivityListKisses extends Activity
     	}
     	
     	//Date filter
-    	FilterKissesBase dateFilter = filtersManager.getFilterKissesDate();
+    	FilterBase<Kiss> dateFilter = filtersManager.getFilterKissesDate();
     	if(dateFilter.isApplied())
     	{
     		textView_dateFilter.setText(dateFilter.getDisplayString());
@@ -139,8 +139,8 @@ public class ActivityListKisses extends Activity
     	//Apply filters
     	if(filtersManager.filtersOn())
     	{
-    	    List<FilterKissesBase> filters = filtersManager.getKissesFilters();
-    	    for(FilterKissesBase filter : filters)
+    	    List<FilterBase<Kiss>> filters = filtersManager.getKissesFilters();
+    	    for(FilterBase<Kiss> filter : filters)
     	    {
     		    if(filter.isApplied())
     		    {

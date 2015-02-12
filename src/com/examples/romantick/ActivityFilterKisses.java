@@ -4,9 +4,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import model.filters.FilterKissesBase;
+import model.Kiss;
+import model.filters.FilterBase;
 import model.filters.FilterKissesDate;
-import model.filters.FilterKissesDoneStatus;
+import model.filters.FilterDoneStatus;
 import model.filters.FiltersManager;
 import utils.general.DatePickerFragment;
 import utils.general.UsefulFunctions;
@@ -91,12 +92,12 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		setEnabledDateControls(false);
 		textView_Date.setText(UsefulFunctions.dateToString(UsefulFunctions.Today()));
 		
-		List<FilterKissesBase> filters = filtersManager.getKissesFilters();
-		for(FilterKissesBase filter : filters)
+		List<FilterBase<Kiss>> filters = filtersManager.getKissesFilters();
+		for(FilterBase<Kiss> filter : filters)
 		{
-            if(filter instanceof FilterKissesDoneStatus)
+            if(filter instanceof FilterDoneStatus)
             {
-                setDoneStatusControls((FilterKissesDoneStatus)filter);
+                setDoneStatusControls((FilterDoneStatus<Kiss>)filter);
             }
             if(filter instanceof FilterKissesDate)
             {
@@ -145,7 +146,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		return UsefulFunctions.stringToDate(textView_Date.getText().toString());
 	}
 	
-	private void setDoneStatusControls(FilterKissesDoneStatus filter)
+	private void setDoneStatusControls(FilterDoneStatus<Kiss> filter)
 	{
 		//Checkbox
 		checkBox_Status.setChecked(filter.isApplied());

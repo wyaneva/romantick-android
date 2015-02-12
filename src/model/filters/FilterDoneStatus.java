@@ -3,15 +3,15 @@ package model.filters;
 import java.util.Iterator;
 import java.util.List;
 
-import model.Kiss;
+import model.ToDoBase;
 import utils.general.Constants;
 import android.content.Context;
 
-public class FilterKissesDoneStatus extends FilterKissesBase
+public class FilterDoneStatus<T extends ToDoBase> extends FilterBase<T>
 {
 	private boolean doneStatus;
 	
-	public FilterKissesDoneStatus(Context context)
+	public FilterDoneStatus(Context context)
 	{
 		super(context);
 		doneStatus = false;
@@ -31,9 +31,9 @@ public class FilterKissesDoneStatus extends FilterKissesBase
 	}
 
 	@Override
-	public void applyFilter(List<Kiss> kissList) 
+	public void applyFilter(List<T> kissList) 
 	{
-		Iterator<Kiss> iter = kissList.iterator();
+		Iterator<T> iter = kissList.iterator();
 		while (iter.hasNext()) 
 		{
 		    if (iter.next().isDone() != doneStatus) 

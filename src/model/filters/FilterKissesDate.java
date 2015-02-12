@@ -10,7 +10,7 @@ import android.content.Context;
 
 import com.example.romantick.R;
 
-public class FilterKissesDate extends FilterKissesBase
+public class FilterKissesDate extends FilterBase<Kiss>
 {
 	private String beforeAfter;
 	private Date date;

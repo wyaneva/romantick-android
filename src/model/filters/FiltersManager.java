@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import model.Kiss;
+
 import android.content.Context;
 
 public class FiltersManager 
@@ -20,23 +22,23 @@ public class FiltersManager
 	}
 	private FiltersManager(Context context)
 	{
-		filterKissesDoneStatus = new FilterKissesDoneStatus(context);
+		filterKissesDoneStatus = new FilterDoneStatus<Kiss>(context);
 		filterKissesDate = new FilterKissesDate(context);
 		
-		kissesFilters = new ArrayList<FilterKissesBase>();
+		kissesFilters = new ArrayList<FilterBase<Kiss>>();
 		kissesFilters.add(filterKissesDoneStatus);
 		kissesFilters.add(filterKissesDate);
 	}
 	
 	private boolean filtersOn = false;
 	
-	private List<FilterKissesBase> kissesFilters = null;
-	private FilterKissesDoneStatus filterKissesDoneStatus = null;
+	private List<FilterBase<Kiss>> kissesFilters = null;
+	private FilterDoneStatus<Kiss> filterKissesDoneStatus = null;
 	private FilterKissesDate filterKissesDate = null;
 	
 	public void clearKissesFilters()
 	{
-		for(FilterKissesBase filter : kissesFilters)
+		for(FilterBase<Kiss> filter : kissesFilters)
 		{
 			filter.setApplied(false);
 		}
@@ -51,7 +53,7 @@ public class FiltersManager
 	{
 		filterKissesDoneStatus.setApplied(false);
 	}
-	public FilterKissesBase getFilterKissesDoneStatus()
+	public FilterBase<Kiss> getFilterKissesDoneStatus()
 	{
 		return filterKissesDoneStatus;
 	}
@@ -66,12 +68,12 @@ public class FiltersManager
 	{
 		filterKissesDate.setApplied(false);
 	}
-	public FilterKissesBase getFilterKissesDate()
+	public FilterBase<Kiss> getFilterKissesDate()
 	{
 		return filterKissesDate;
 	}
 	
-	public List<FilterKissesBase> getKissesFilters()
+	public List<FilterBase<Kiss>> getKissesFilters()
 	{
 		return kissesFilters;
 	}

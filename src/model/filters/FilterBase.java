@@ -2,22 +2,22 @@ package model.filters;
 
 import java.util.List;
 
+import model.ToDoBase;
+
 import android.content.Context;
 
-import model.Kiss;
-
-public abstract class FilterKissesBase 
+public abstract class FilterBase<T extends ToDoBase> 
 {
 	protected Context context;
 	protected boolean isApplied;
 	
-	public FilterKissesBase(Context _context)
+	public FilterBase(Context _context)
 	{
 		context = _context;
 	}
 	
 	public abstract String getDisplayString();
-	public abstract void applyFilter(List<Kiss> kissList);
+	public abstract void applyFilter(List<T> kissList);
 
 	//Getters and Setters
 	public boolean isApplied() 
