@@ -5,7 +5,7 @@ import java.util.List;
 import model.Action;
 import model.Kiss;
 import model.filters.FilterBase;
-import model.filters.FiltersManager;
+import model.filters.FiltersManagerKisses;
 import utils.adapters.AdapterKissList;
 import utils.enums.EnumAddOrEditState;
 import utils.general.Constants;
@@ -27,7 +27,7 @@ public class ActivityListKisses extends Activity
 {
 	private IDataHandlerKisses dataHandler = null;
 	private AdapterKissList kissListAdapter = null;
-	private FiltersManager filtersManager = null;
+	private FiltersManagerKisses filtersManager = null;
 	
 	//controls
 	private ListView listView_allKisses = null;
@@ -46,7 +46,7 @@ public class ActivityListKisses extends Activity
         
         //create the data handler
         dataHandler = SQLiteOpenHelperKisses.getInstance(this);
-        filtersManager = FiltersManager.getInstance(this);
+        filtersManager = FiltersManagerKisses.getInstance(this);
         
         //create the Action List Adapter
         kissListAdapter = new AdapterKissList(this);
@@ -139,7 +139,7 @@ public class ActivityListKisses extends Activity
     	//Apply filters
     	if(filtersManager.filtersOn())
     	{
-    	    List<FilterBase<Kiss>> filters = filtersManager.getKissesFilters();
+    	    List<FilterBase<Kiss>> filters = filtersManager.getFilters();
     	    for(FilterBase<Kiss> filter : filters)
     	    {
     		    if(filter.isApplied())

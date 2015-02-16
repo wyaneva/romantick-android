@@ -8,7 +8,7 @@ import model.Kiss;
 import model.filters.FilterBase;
 import model.filters.FilterKissesDate;
 import model.filters.FilterDoneStatus;
-import model.filters.FiltersManager;
+import model.filters.FiltersManagerKisses;
 import utils.general.DatePickerFragment;
 import utils.general.UsefulFunctions;
 import android.app.Activity;
@@ -27,7 +27,7 @@ import com.example.romantick.R;
 
 public class ActivityFilterKisses extends Activity implements DatePickerDialog.OnDateSetListener
 {
-	private FiltersManager filtersManager = null;
+	private FiltersManagerKisses filtersManager = null;
 	
 	//Controls
 	CheckBox checkBox_Status = null;
@@ -39,7 +39,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		filtersManager = FiltersManager.getInstance(this);
+		filtersManager = FiltersManagerKisses.getInstance(this);
 		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filter_kisses);
@@ -92,7 +92,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		setEnabledDateControls(false);
 		textView_Date.setText(UsefulFunctions.dateToString(UsefulFunctions.Today()));
 		
-		List<FilterBase<Kiss>> filters = filtersManager.getKissesFilters();
+		List<FilterBase<Kiss>> filters = filtersManager.getFilters();
 		for(FilterBase<Kiss> filter : filters)
 		{
             if(filter instanceof FilterDoneStatus)
@@ -109,7 +109,7 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	//Button actions
 	public void saveFilters(View view)
 	{
-		filtersManager.clearKissesFilters();
+		filtersManager.clearFilters();
 
 		if(checkBox_Status.isChecked())
 		{

@@ -1,48 +1,35 @@
 package model.filters;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import model.Kiss;
-
 import android.content.Context;
 
-public class FiltersManager 
+public class FiltersManagerKisses extends FiltersManagerBase<Kiss>
 {
-	private static FiltersManager singleton = null;
-	public static FiltersManager getInstance(Context context)
+	private static FiltersManagerKisses singleton = null;
+	public static FiltersManagerKisses getInstance(Context context)
 	{
 		if(singleton == null)
 		{
-			singleton = new FiltersManager(context);
+			singleton = new FiltersManagerKisses(context);
 		}
 		
 		return singleton;
 	}
-	private FiltersManager(Context context)
+	private FiltersManagerKisses(Context context)
 	{
+		super();
+		
 		filterKissesDoneStatus = new FilterDoneStatus<Kiss>(context);
 		filterKissesDate = new FilterKissesDate(context);
 		
-		kissesFilters = new ArrayList<FilterBase<Kiss>>();
-		kissesFilters.add(filterKissesDoneStatus);
-		kissesFilters.add(filterKissesDate);
+		filters.add(filterKissesDoneStatus);
+		filters.add(filterKissesDate);
 	}
 	
-	private boolean filtersOn = false;
-	
-	private List<FilterBase<Kiss>> kissesFilters = null;
 	private FilterDoneStatus<Kiss> filterKissesDoneStatus = null;
 	private FilterKissesDate filterKissesDate = null;
-	
-	public void clearKissesFilters()
-	{
-		for(FilterBase<Kiss> filter : kissesFilters)
-		{
-			filter.setApplied(false);
-		}
-	}
 
 	public void addFilterKissesDoneStatus(boolean isDone)
 	{
@@ -71,20 +58,5 @@ public class FiltersManager
 	public FilterBase<Kiss> getFilterKissesDate()
 	{
 		return filterKissesDate;
-	}
-	
-	public List<FilterBase<Kiss>> getKissesFilters()
-	{
-		return kissesFilters;
-	}
-	
-	//Getters and setters
-	public boolean filtersOn()
-	{
-		return filtersOn;
-	}
-	public void setFiltersOn(boolean filtersOn)
-	{
-		this.filtersOn = filtersOn;
 	}
 }
