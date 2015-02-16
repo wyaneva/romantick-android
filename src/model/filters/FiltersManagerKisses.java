@@ -38,7 +38,7 @@ public class FiltersManagerKisses extends FiltersManagerBase<Kiss>
 	}
 	public void removeFilterKissesDoneStatus()
 	{
-		filterKissesDoneStatus.setApplied(false);
+		super.removeFilter(filterKissesDoneStatus);
 	}
 	public FilterBase<Kiss> getFilterKissesDoneStatus()
 	{
@@ -53,7 +53,7 @@ public class FiltersManagerKisses extends FiltersManagerBase<Kiss>
 	}
 	public void removeFilterKissesDate()
 	{
-		filterKissesDate.setApplied(false);
+		super.removeFilter(filterKissesDate);
 	}
 	public FilterBase<Kiss> getFilterKissesDate()
 	{

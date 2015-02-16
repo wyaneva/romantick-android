@@ -13,13 +13,7 @@ public class FiltersManagerBase<T extends ToDoBase>
 	}
 	
 	private boolean filtersOn;
-	
 	protected List<FilterBase<T>> filters = null;
-
-	public List<FilterBase<T>> getFilters()
-	{
-		return filters;
-	}
 	
 	public void clearFilters()
 	{
@@ -28,8 +22,16 @@ public class FiltersManagerBase<T extends ToDoBase>
 			filter.setApplied(false);
 		}
 	}
-	
+	public void removeFilter(FilterBase<T> filter)
+	{
+		filter.setApplied(false);
+	}
+
 	//Getters and Setters
+	public List<FilterBase<T>> getFilters()
+	{
+		return filters;
+	}
 	public boolean filtersOn()
 	{
 		return filtersOn;
