@@ -1,6 +1,9 @@
 package com.examples.romantick;
 
 import model.Action;
+import model.Kiss;
+import model.filters.FilterBase;
+import model.filters.FiltersManagerActions;
 import utils.adapters.AdapterActionList;
 import utils.enums.EnumAddOrEditState;
 import utils.general.Constants;
@@ -10,6 +13,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.romantick.R;
 
@@ -20,9 +25,13 @@ public class ActivityListActions extends Activity {
 
 	private IDataHandlerActions dataHandler = null;
 	private AdapterActionList actionListAdapter;
+	private FiltersManagerActions filtersManager = null;
 	
 	//controls
 	private ListView listView_allActions = null;
+	private TextView textView_doneStatusFilter = null;
+	private TextView textView_locationFilter = null;
+	private Switch switch_Filters = null;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +40,10 @@ public class ActivityListActions extends Activity {
 
         //initialise
         initialiseControls();
-        //setListeners();
         
         //create the data handler
         dataHandler = SQLiteOpenHelperActions.getInstance(this);
+        filtersManager = FiltersManagerActions.getInstance(this);
         
         //create the Action List Adapter
         actionListAdapter = new AdapterActionList(this);
@@ -52,6 +61,9 @@ public class ActivityListActions extends Activity {
     {
     	super.onResume();
     	
+    	//set filters view
+    	setFiltersView();
+    	
     	//populate the list of actions
     	populateActionList();
     }
@@ -60,6 +72,9 @@ public class ActivityListActions extends Activity {
     private void initialiseControls()
     {
     	listView_allActions = (ListView) findViewById(R.id.listView_allActions);
+    	textView_doneStatusFilter = (TextView) findViewById(R.id.textView_ActionDoneStatusFilter);
+    	textView_locationFilter = (TextView) findViewById(R.id.textView_ActionLocationFilter);
+    	switch_Filters = (Switch) findViewById(R.id.switch_FiltersAction);
     }
 
     //Button Actions
@@ -72,8 +87,45 @@ public class ActivityListActions extends Activity {
     	intent.putExtra(Constants.EXTRA_TODO_TO_EDIT, (Action)null);
     	startActivity(intent);
     }
-
+    public void setFilters(View view)
+    {
+    	//TODO:
+    }
+    public void setOrClearFilters(View view)
+    {
+    	filtersManager.setFiltersOn(switch_Filters.isChecked());
+    	populateActionList();
+    }
+    
     //Helper functions
+    private void setFiltersView()
+    {
+    	//Done status filter
+    	FilterBase<Action> doneStatusFilter = filtersManager.getFilterActionsDoneStatus();
+    	if(doneStatusFilter.isApplied())
+    	{
+    		textView_doneStatusFilter.setText(doneStatusFilter.getDisplayString());
+    		textView_doneStatusFilter.setVisibility(View.VISIBLE);
+    	}
+    	else
+    	{
+    		textView_doneStatusFilter.setText("");
+    		textView_doneStatusFilter.setVisibility(View.GONE);
+    	}
+    	
+    	//Date filter
+    	FilterBase<Action> locationFilter = filtersManager.getFilterActionsLocation();
+    	if(locationFilter.isApplied())
+    	{
+    		textView_locationFilter.setText(locationFilter.getDisplayString());
+    		textView_locationFilter.setVisibility(View.VISIBLE);
+    	}
+    	else
+    	{
+    		textView_locationFilter.setText("");
+    		textView_locationFilter.setVisibility(View.GONE);
+    	}
+    }
     private void populateActionList()
     {
     	actionListAdapter.setActionList(dataHandler.getAllActions());
