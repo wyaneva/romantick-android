@@ -37,4 +37,9 @@ public class FilterActionsLocation extends FilterBase<Action>
 		}
 	}
 
+	//Getters and setters
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
 }

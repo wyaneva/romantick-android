@@ -34,4 +34,26 @@ public class FiltersManagerActions extends FiltersManagerBase<Action>
 		filterActionsDoneStatus.setDoneStatus(isDone);
 		filterActionsDoneStatus.setApplied(true);
 	}
+	public void removeFilterActionsDoneStatus()
+	{
+		super.removeFilter(filterActionsDoneStatus);
+	}
+	public FilterBase<Action> getFilterActionsDoneStatus()
+	{
+		return filterActionsDoneStatus;
+	}
+	
+	public void addFilterActionsLocation(String location)
+	{
+		filterActionsLocation.setLocation(location);
+		filterActionsLocation.setApplied(true);
+	}
+	public void removeFilterActionsLocation()
+	{
+		super.removeFilter(filterActionsLocation);
+	}
+	public FilterBase<Action> getFilterActionsLocation()
+	{
+		return filterActionsLocation;
+	}
 }
