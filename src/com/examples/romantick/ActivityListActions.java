@@ -1,7 +1,8 @@
 package com.examples.romantick;
 
+import java.util.List;
+
 import model.Action;
-import model.Kiss;
 import model.filters.FilterBase;
 import model.filters.FiltersManagerActions;
 import utils.adapters.AdapterActionList;
@@ -89,7 +90,10 @@ public class ActivityListActions extends Activity {
     }
     public void setFilters(View view)
     {
-    	//TODO:
+    	Intent intent = new Intent(this, ActivityFilterActions.class);
+
+    	//add the data handler to the intent
+    	startActivity(intent);
     }
     public void setOrClearFilters(View view)
     {
@@ -128,7 +132,22 @@ public class ActivityListActions extends Activity {
     }
     private void populateActionList()
     {
-    	actionListAdapter.setActionList(dataHandler.getAllActions());
+    	List<Action> actionList = dataHandler.getAllActions();
+    	
+    	//Apply filters
+    	if(filtersManager.filtersOn())
+    	{
+    		List<FilterBase<Action>> filters = filtersManager.getFilters();
+    		for(FilterBase<Action> filter : filters)
+    		{
+    			if(filter.isApplied())
+    			{
+    				filter.applyFilter(actionList);
+    			}
+    		}
+    	}
+    	
+    	actionListAdapter.setActionList(actionList);
     	listView_allActions.setAdapter(actionListAdapter);
     }
 

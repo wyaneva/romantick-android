@@ -9,6 +9,7 @@
     <string name="title_activity_list_kisses">Kiss Log</string>
     <string name="title_activity_add_or_edit_kiss">Kiss</string>
     <string name="title_activity_filter_kisses">Filter Kisses</string>
+    <string name="title_activity_filter_actions">Filter Actions</string>
 
     <!-- Actions -->
     <string name="action_settings">Settings</string>

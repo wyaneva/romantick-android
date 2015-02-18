@@ -42,4 +42,8 @@ public class FilterActionsLocation extends FilterBase<Action>
 	{
 		this.location = location;
 	}
+	public String getLocation()
+	{
+		return location;
+	}
 }

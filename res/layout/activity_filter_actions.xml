@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:context="com.examples.romantick.ActivityFilterActions"
+    tools:ignore="MergeRootFrame" >
+
+    <TextView
+        android:id="@+id/textView_filtersActions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="@string/text_filters"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:stretchColumns="1"
+        android:paddingLeft="10dp" >
+
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <CheckBox
+                android:id="@+id/checkBox_ActionsStatusFilter"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:text="@string/text_status" />
+
+            <Spinner
+                android:id="@+id/spinner_ActionsStatusFilter"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|start" 
+                android:entries="@array/spinnerStatusItems" />
+            
+        </TableRow>
+        
+        <TableRow
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp" >
+
+            <CheckBox
+                android:id="@+id/checkBox_ActionsLocationFilter"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical|start"
+                android:text="@string/text_location" />
+
+            <Spinner
+                android:id="@+id/spinner_ActionsLocationFilter"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical|start" 
+                android:entries="@array/spinnerLocationItems" />
+            
+        </TableRow>
+
+    </TableLayout>
+
+    <Button
+        android:id="@+id/buttonOk"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="saveFilters"
+        android:background="@android:color/holo_green_light"
+        android:text="@string/button_ok" />
+
+</LinearLayout>
+

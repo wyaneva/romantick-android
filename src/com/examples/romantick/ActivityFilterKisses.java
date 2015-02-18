@@ -39,10 +39,10 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 	@Override
 	protected void onCreate(Bundle savedInstanceState) 
 	{
-		filtersManager = FiltersManagerKisses.getInstance(this);
-		
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_filter_kisses);
+
+		filtersManager = FiltersManagerKisses.getInstance(this);
 		
 		//Initialise controls
 		initialiseControls();
@@ -178,19 +178,8 @@ public class ActivityFilterKisses extends Activity implements DatePickerDialog.O
 		checkBox_Date.setChecked(filter.isApplied());
 		
 		//Spinner
-		String before = getResources().getString(R.string.before);
-		String after = getResources().getString(R.string.after);
 		String[] spinnerItems = getResources().getStringArray(R.array.spinnerDateItems);
-		
-		String searchedItem = "";
-		if(filter.getBeforeAfter() == before)
-		{
-			searchedItem = before;
-		}
-		else if(filter.getBeforeAfter() == after)
-		{
-			searchedItem = after;
-		}
+		String searchedItem = filter.getBeforeAfter();
 			
 		int position = UsefulFunctions.findItemPosition(searchedItem, spinnerItems);
 		if(position != -1)

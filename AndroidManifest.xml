@@ -59,7 +59,12 @@
         <activity
             android:name="com.examples.romantick.ActivityFilterKisses"
             android:label="@string/title_activity_filter_kisses" >
+        </activity>        
+        <activity
+            android:name="com.examples.romantick.ActivityFilterActions"
+            android:label="@string/title_activity_filter_actions" >
         </activity>
+ 
     </application>
 
 </manifest>
