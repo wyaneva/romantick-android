@@ -3,10 +3,10 @@ package model.filters;
 import java.util.Iterator;
 import java.util.List;
 
-import com.example.romantick.R;
-
-import android.content.Context;
 import model.Action;
+import android.content.Context;
+
+import com.example.romantick.R;
 
 public class FilterActionsLocation extends FilterBase<Action> 
 {
@@ -30,7 +30,8 @@ public class FilterActionsLocation extends FilterBase<Action>
 		Iterator<Action> iter = actionList.iterator();
 		while (iter.hasNext())
 		{
-			if(!location.equals(iter.next().getLocation(context)));
+			Action action = iter.next();
+			if(!location.equals(action.getLocation(context)))
 			{
 				iter.remove();
 			}
