@@ -58,11 +58,19 @@
         
     </LinearLayout>
     
+    <!-- View
+ 		android:layout_width="match_parent"
+ 		android:layout_height="1dp"
+ 		android:paddingTop="3dp"
+ 		android:paddingBottom="3dp"
+ 		android:background="@android:color/holo_orange_dark" /> -->
+    
     <ListView
         android:id="@+id/listView_allActions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:paddingTop="10dp"
         android:paddingBottom="10dp" >
 
     </ListView>
